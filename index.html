@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laptop API Demo</title>
+</head>
+<body>
+  <h1>Laptop API Status</h1>
+  <p id="output">Loading...</p>
+
+  <script>
+    fetch("https://abcd1234.ngrok.io/api/data")
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("output").textContent = JSON.stringify(data);
+      })
+      .catch(error => {
+        document.getElementById("output").textContent = "API not available.";
+      });
+  </script>
+</body>
+</html>

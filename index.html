@@ -10,7 +10,7 @@
   <p id="output">Loading...</p>
 
   <script>
-    fetch("https://2e7a-82-16-10-148.ngrok-free.app/")
+    fetch("https://2e7a-82-16-10-148.ngrok-free.app/api/data")
       .then(response => response.json())
       .then(data => {
         document.getElementById("output").textContent = JSON.stringify(data);

@@ -18,20 +18,14 @@
       output.textContent = "Loading...";
     
       fetch("https://measured-boar-awaited.ngrok-free.app/api/data")
-        .then(response => {
-          output.textContent = `Status: ${response.status}`;
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-          output.textContent += `\nData:\n${JSON.stringify(data, null, 2)}`;
+          document.getElementById("output").textContent = JSON.stringify(data, null, 2);
         })
         .catch(error => {
-          console.error(error);
-          output.textContent = "Error: " + error.message;
+          document.getElementById("output").textContent = "API not available: " + error;
         });
+
     }
 
 

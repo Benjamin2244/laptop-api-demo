@@ -17,27 +17,17 @@
       console.log("pressed");
       output.textContent = "Loading...";
     
-      fetch("https://measured-boar-awaited.ngrok-free.app/api/data", {
-        headers: {
-          "ngrok-skip-browser-warning": "1"
-        }
-      })
-      .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+    fetch("https://measured-boar-awaited.ngrok-free.app/api/data", {
+      headers: {
+        "ngrok-skip-browser-warning": "1"
       }
-      const contentType = response.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        throw new Error("Response is not JSON");
-      }
-      return response.json();
     })
+    .then(response => response.json())
     .then(data => {
       output.textContent = JSON.stringify(data, null, 2);
     })
     .catch(error => {
-      output.textContent = "API not available: " + error.message;
-      console.error(error);
+      output.textContent = "API not available: " + error;
     });
     }
 

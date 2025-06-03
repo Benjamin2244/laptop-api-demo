@@ -14,6 +14,7 @@
     const output = document.getElementById("output");
     
     function testFetch() {
+      console.log("pressed");
       fetch("https://62d2-82-16-10-148.ngrok-free.app/api/data")
         .then(response => {
           output.textContent = `Status: ${response.status}`;

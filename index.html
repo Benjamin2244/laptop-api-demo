@@ -17,8 +17,14 @@
       console.log("pressed");
       fetch("https://jsonplaceholder.typicode.com/todos/1")
         .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.error(err));
+        .then(data => {
+          console.log(data);
+          output.textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(err => {
+          console.error(err);
+          output.textContent = "Error: " + err.message;
+        });
 
       // fetch("https://62d2-82-16-10-148.ngrok-free.app/api/data")
       //   .then(response => {

@@ -4,37 +4,76 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Laptop API Demo</title>
+  <style>
+    nav {
+      margin-bottom: 2em;
+    }
+    nav a {
+      margin-right: 1em;
+      text-decoration: none;
+      color: #0074d9;
+    }
+    section {
+      margin-bottom: 2em;
+      padding: 1em;
+      border: 1px solid #eee;
+      border-radius: 6px;
+      background: #fafafa;
+    }
+    h2 {
+      margin-top: 0;
+    }
+  </style>
 </head>
 <body>
-  <h1>Laptop API Status</h1>
-  <button id="checkButton">Check API</button>
-  <pre id="output">Click the button to test the API.</pre>
+  <h1>Welcome to My Homepage</h1>
+  <nav>
+    <a href="#cv">CV</a>
+    <a href="#written-projects">Written Projects</a>
+    <a href="#fun-projects">Fun Projects</a>
+    <a href="#api-demo">API Demo</a>
+  </nav>
+
+  <section id="cv">
+    <h2>CV</h2>
+    <p>Brief summary or link to your CV goes here.</p>
+  </section>
+
+  <section id="written-projects">
+    <h2>Written Projects</h2>
+    <p>Descriptions or links to your written projects.</p>
+  </section>
+
+  <section id="fun-projects">
+    <h2>Fun Projects</h2>
+    <p>Descriptions or links to your fun/side projects.</p>
+  </section>
+
+  <section id="api-demo">
+    <h2>Laptop API Status</h2>
+    <button id="checkButton">Check API</button>
+    <pre id="output">Click the button to test the API.</pre>
+  </section>
 
   <script>
     const output = document.getElementById("output");
-            
     function testFetch() {
       console.log("pressed");
       output.textContent = "Loading...";
-    
-    fetch("https://measured-boar-awaited.ngrok-free.app/api/data", {
-      headers: {
-        "ngrok-skip-browser-warning": "1"
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      output.textContent = JSON.stringify(data, null, 2);
-    })
-    .catch(error => {
-      output.textContent = "API not available: " + error;
-    });
+      fetch("https://measured-boar-awaited.ngrok-free.app/api/data", {
+        headers: {
+          "ngrok-skip-browser-warning": "1"
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        output.textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(error => {
+        output.textContent = "API not available: " + error;
+      });
     }
-
-
-
     document.getElementById("checkButton").addEventListener("click", testFetch);
-
     // Uncomment to auto-fetch on load:
     // testFetch();
   </script>

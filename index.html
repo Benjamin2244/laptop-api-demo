@@ -7,17 +7,30 @@
 </head>
 <body>
   <h1>Laptop API Status</h1>
-  <p id="output">Loading...</p>
+  <button id="checkButton">Check API</button>
+  <pre id="output">Click the button to test the API.</pre>
 
   <script>
-    fetch("https://62d2-82-16-10-148.ngrok-free.app/api/data")
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById("output").textContent = JSON.stringify(data);
-      })
-      .catch(error => {
-        document.getElementById("output").textContent = "API not available.";
-      });
-  </script>
+    const output = document.getElementById("output");
+    
+    function testFetch() {
+      fetch("https://62d2-82-16-10-148.ngrok-free.app/api/data")
+        .then(response => {
+          output.textContent = `Status: ${response.status}`;
+          return response.json();
+        })
+        .then(data => {
+          output.textContent += `\nData: ${JSON.stringify(data, null, 2)}`;
+        })
+        .catch(error => {
+          output.textContent = `Error: ${error}`;
+          console.error(error);
+        });
+    }
+
+    document.getElementById("checkButton").addEventListener("click", testFetch);
+
+    // Uncomment to auto-fetch on load:
+    // testFetch();
 </body>
 </html>

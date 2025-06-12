@@ -37,9 +37,37 @@
 </head>
 
 <body>
-    <iframe src="Benjamin_Ward_CV.pdf" width="80%" height="1200px">
-    This browser does not support PDFs. <a href="Benjamin_Ward_CV.pdf">Download PDF</a>
-    </iframe>
+    <div 
+        style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2em 0;
+        "
+    >
+        <a href="Benjamin_Ward_CV.pdf" download style="
+            background: #0074d9;
+            color: white;
+            padding: 0.8em 1.6em;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-bottom: 1em;
+        ">
+            Download My CV
+        </a>
+    
+        <iframe 
+            src="Benjamin_Ward_CV.pdf" 
+            style="
+                width: 95%; 
+                max-width: 900px;
+                height: 1150px;
+            "
+        >
+            This browser does not support PDFs. <a href="Benjamin_Ward_CV.pdf">Download PDF</a>
+        </iframe>
+    </div>
+    
 
 </body>
 

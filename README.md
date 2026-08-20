@@ -57,6 +57,20 @@ rule, card glow, timeline spine and tag colours via `--hue-1` / `--hue-2`, so
 sections feel distinct while sharing one palette. Available hues: `indigo`,
 `violet`, `teal`, `blue`, `amber`, `cyan`, `rose`, `green`.
 
+### Density
+
+The layout is tuned to put as much on screen as possible without crowding:
+section cards go two-up from 22rem and pack in from there, timeline entries
+pair into two columns from 64rem, and the content column runs to 78rem.
+
+Cards are **compact by default and open up at 40rem** — smaller padding, a
+smaller title and a line-clamped description on phones — which keeps the
+mobile-first, `min-width`-only convention rather than reaching for
+`max-width` overrides.
+
+With placeholder content, every section page fits within about one 1280×900
+screen, and the home page shows all eight cards without scrolling.
+
 ### Motion
 
 Elements marked `data-reveal="<group>"` fade and rise in as they scroll into

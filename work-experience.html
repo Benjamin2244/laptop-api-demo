@@ -6,6 +6,7 @@
   <title>Work Experience · Benjamin Ward</title>
   <meta name="description" content="Benjamin Ward's work experience and roles." />
   <link rel="stylesheet" href="assets/css/site.css" />
+  <script>document.documentElement.classList.add("js");</script>
   <script src="assets/js/analytics.js" defer></script>
 </head>
 <body>
@@ -26,16 +27,16 @@
 
   <div data-topbar></div>
 
-  <main data-back="index.html">
+  <main data-back="index.html" data-hue="teal">
     <div class="container">
 
-      <header class="page-header">
+      <header class="page-header" data-reveal="head">
         <h1>Work Experience</h1>
         <p class="page-header__lede">Placeholder lede — a line introducing the work experience section.</p>
       </header>
 
       <ul class="timeline">
-        <li class="timeline-item">
+        <li class="timeline-item" data-reveal="item">
           <div class="timeline-item__head">
             <div>
               <h2 class="timeline-item__title">Placeholder role</h2>
@@ -48,7 +49,7 @@
             <li>Placeholder line — a result or something learned.</li>
           </ul>
         </li>
-        <li class="timeline-item">
+        <li class="timeline-item" data-reveal="item">
           <div class="timeline-item__head">
             <div>
               <h2 class="timeline-item__title">Placeholder role</h2>
@@ -62,7 +63,7 @@
           </ul>
         </li>
       </ul>
-      <p class="placeholder-note">Skeleton pass — real roles go here. Projects built in a role can link across to <a href="work-projects.html">Work Projects</a>.</p>
+      <p class="placeholder-note" data-reveal="block">Skeleton pass — real roles go here. Projects built in a role can link across to <a href="work-projects.html">Work Projects</a>.</p>
 
     </div>
   </main>
@@ -71,5 +72,6 @@
 
   <script src="assets/js/api-status.js" defer></script>
   <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/reveal.js" defer></script>
 </body>
 </html>

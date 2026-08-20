@@ -6,6 +6,7 @@
   <title>Work Projects · Benjamin Ward</title>
   <meta name="description" content="Projects Benjamin Ward has built professionally." />
   <link rel="stylesheet" href="assets/css/site.css" />
+  <script>document.documentElement.classList.add("js");</script>
   <script src="assets/js/analytics.js" defer></script>
 </head>
 <body>
@@ -26,30 +27,30 @@
 
   <div data-topbar></div>
 
-  <main data-back="index.html">
+  <main data-back="index.html" data-hue="blue">
     <div class="container">
 
-      <header class="page-header">
+      <header class="page-header" data-reveal="head">
         <h1>Work Projects</h1>
         <p class="page-header__lede">Placeholder lede — a line introducing projects built on the job.</p>
       </header>
 
       <ul class="card-grid">
-          <li>
+          <li data-reveal="card">
             <a class="card" href="project-placeholder.html">
               <span class="card__title">Placeholder project (shared)</span>
               <span class="card__desc">This project is also listed under Skills — it is the example that exercises the back link resolving to wherever you came from.</span>
               <span class="card__meta">Placeholder tech</span>
             </a>
           </li>
-          <li>
+          <li data-reveal="card">
             <a class="card" href="project-placeholder.html">
               <span class="card__title">Placeholder project</span>
               <span class="card__desc">Placeholder description — one line on what it does.</span>
               <span class="card__meta">Placeholder tech</span>
             </a>
           </li>
-          <li>
+          <li data-reveal="card">
             <a class="card" href="project-placeholder.html">
               <span class="card__title">Placeholder project</span>
               <span class="card__desc">Placeholder description — one line on what it does.</span>
@@ -57,7 +58,7 @@
             </a>
           </li>
       </ul>
-      <p class="placeholder-note">Skeleton pass — each card will get its own page in the content pass.</p>
+      <p class="placeholder-note" data-reveal="block">Skeleton pass — each card will get its own page in the content pass.</p>
 
     </div>
   </main>
@@ -66,5 +67,6 @@
 
   <script src="assets/js/api-status.js" defer></script>
   <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/reveal.js" defer></script>
 </body>
 </html>

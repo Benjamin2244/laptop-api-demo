@@ -157,11 +157,12 @@
 
     var back = resolveBack(document.querySelector("main"));
 
-    var backLink = el("a", {
-      href: back.href,
-      class: "topbar__back",
-      text: "← " + back.label
-    });
+    /* Arrow and label are separate elements so the arrow can animate on hover
+       and the label alone carries the truncation. */
+    var backLink = el("a", { href: back.href, class: "topbar__back" }, [
+      el("span", { class: "topbar__arrow", "aria-hidden": "true", text: "←" }),
+      el("span", { class: "topbar__label", text: back.label })
+    ]);
 
     if (back.useHistory) {
       backLink.addEventListener("click", function (event) {

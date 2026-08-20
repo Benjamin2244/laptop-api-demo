@@ -22,6 +22,7 @@ cv.html                    PDF viewer + download
 assets/
   css/site.css             design tokens, layout primitives, components
   js/site.js               shared chrome: topbar, back link, footer
+  js/reveal.js             scroll-reveal animations
   js/api-status.js         laptop API status widget
   js/analytics.js          Google Analytics tag
 ```
@@ -45,13 +46,46 @@ several sections:
 2. Otherwise (deep link, shared URL, new tab) it falls back to the parent the
    page declares via `data-back` on its `<main>`.
 
+## Design system
+
+Colour, spacing, type and motion all come from custom properties on `:root` in
+`site.css`, with a dark palette swapped in under `prefers-color-scheme: dark`.
+
+Each section owns a **hue**, set with `data-hue` on the page's `<main>` (or on a
+card's `<li>` on the home page). The hue drives that page's heading gradient,
+rule, card glow, timeline spine and tag colours via `--hue-1` / `--hue-2`, so
+sections feel distinct while sharing one palette. Available hues: `indigo`,
+`violet`, `teal`, `blue`, `amber`, `cyan`, `rose`, `green`.
+
+### Motion
+
+Elements marked `data-reveal="<group>"` fade and rise in as they scroll into
+view, staggered within their group. Cross-page navigation uses the View
+Transitions API where supported.
+
+Three rules the motion layer must always satisfy:
+
+- **Nothing depends on JS to be visible.** The hidden state is scoped to
+  `.js [data-reveal]`, and `reveal.js` is what sets `.js` — so with JS off,
+  everything renders normally.
+- **`prefers-reduced-motion` wins.** The hidden state sits inside a
+  `no-preference` query, and a catch-all block neutralises every remaining
+  transition and animation.
+- **Print snaps to the final state.** `@media print` forces reveals visible and
+  disables transitions, so printing never captures a half-faded page.
+
+Reveals are decorative only — if `IntersectionObserver` is missing or never
+fires, a timeout shows the content anyway.
+
 ### Adding a page
 
 1. Create the HTML file in the repo root, copying the shell of an existing
    section page.
-2. Set `data-back` on `<main>` to its default parent.
+2. Set `data-back` on `<main>` to its default parent, and `data-hue` to one of
+   the hues above.
 3. Add an entry to `PAGES` in `assets/js/site.js` — that one array drives both
    the footer list and the back-link labels.
+4. Mark the content blocks you want animated with `data-reveal="…"`.
 
 ## Local preview
 

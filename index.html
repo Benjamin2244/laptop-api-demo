@@ -6,6 +6,7 @@
   <title>Benjamin Ward</title>
   <meta name="description" content="Portfolio and CV of Benjamin Ward — computer science, data science, and software engineering." />
   <link rel="stylesheet" href="assets/css/site.css" />
+  <script>document.documentElement.classList.add("js");</script>
   <script src="assets/js/analytics.js" defer></script>
 </head>
 <body>
@@ -29,7 +30,7 @@
   <main data-back="index.html">
     <div class="container">
 
-      <section class="hero">
+      <section class="hero" data-reveal="hero">
         <h1 class="hero__name">Benjamin Ward</h1>
         <p class="hero__bio placeholder">
           Placeholder bio — one or two lines on who you are and what you build.
@@ -44,10 +45,10 @@
       </section>
 
       <section>
-        <h2 class="section-heading">Sections</h2>
+        <h2 class="section-heading" data-reveal="head">Sections</h2>
         <ul class="card-grid">
 
-          <li>
+          <li data-reveal="card" data-hue="indigo">
             <a class="card" href="education.html">
               <span class="card__title">Education</span>
               <span class="card__desc">UCL, undergraduate degree, and earlier schooling.</span>
@@ -55,7 +56,7 @@
             </a>
           </li>
 
-          <li>
+          <li data-reveal="card" data-hue="teal">
             <a class="card" href="work-experience.html">
               <span class="card__title">Work Experience</span>
               <span class="card__desc">Roles, internships, and what each one involved.</span>
@@ -63,7 +64,7 @@
             </a>
           </li>
 
-          <li>
+          <li data-reveal="card" data-hue="blue">
             <a class="card" href="work-projects.html">
               <span class="card__title">Work Projects</span>
               <span class="card__desc">Things built on the job, and the part you played.</span>
@@ -71,7 +72,7 @@
             </a>
           </li>
 
-          <li>
+          <li data-reveal="card" data-hue="violet">
             <a class="card" href="personal-projects.html">
               <span class="card__title">Personal Projects</span>
               <span class="card__desc">Side projects, experiments, and things built for fun.</span>
@@ -79,7 +80,7 @@
             </a>
           </li>
 
-          <li>
+          <li data-reveal="card" data-hue="amber">
             <a class="card" href="certifications.html">
               <span class="card__title">Certifications</span>
               <span class="card__desc">Courses and credentials, with what each covered.</span>
@@ -87,7 +88,7 @@
             </a>
           </li>
 
-          <li>
+          <li data-reveal="card" data-hue="cyan">
             <a class="card" href="skills.html">
               <span class="card__title">Skills &amp; Tech</span>
               <span class="card__desc">Languages and tools, and where they have been used.</span>
@@ -95,7 +96,7 @@
             </a>
           </li>
 
-          <li>
+          <li data-reveal="card" data-hue="rose">
             <a class="card" href="extracurricular.html">
               <span class="card__title">Extracurricular</span>
               <span class="card__desc">Student rep work, competitions, and volunteering.</span>
@@ -103,7 +104,7 @@
             </a>
           </li>
 
-          <li>
+          <li data-reveal="card" data-hue="green">
             <a class="card" href="cv.html">
               <span class="card__title">CV</span>
               <span class="card__desc">Read the full CV in the browser, or download the PDF.</span>
@@ -121,5 +122,6 @@
 
   <script src="assets/js/api-status.js" defer></script>
   <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/reveal.js" defer></script>
 </body>
 </html>

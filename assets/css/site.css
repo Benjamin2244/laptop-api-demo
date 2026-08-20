@@ -1,0 +1,712 @@
+/* ==========================================================================
+   Benjamin Ward — portfolio site
+   Mobile-first. Base styles target narrow screens; min-width queries scale up.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Colour — light */
+  --bg: #fbfbfa;
+  --bg-raised: #ffffff;
+  --bg-sunken: #f2f2f0;
+  --text: #1c1c1a;
+  --text-muted: #6b6b66;
+  --text-faint: #91918b;
+  --border: #e3e3df;
+  --border-strong: #cfcfc9;
+  --accent: #1f5fbf;
+  --accent-hover: #17458c;
+  --accent-soft: #e8f0fc;
+  --ok: #2f8f4e;
+  --off: #a3a39d;
+
+  /* Spacing scale */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+  --sp-9: 6rem;
+
+  /* Type scale */
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.375rem;
+  --fs-2xl: 1.75rem;
+  --fs-3xl: 2.25rem;
+
+  --lh-tight: 1.2;
+  --lh-normal: 1.6;
+
+  /* Shape */
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-pill: 999px;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(0, 0, 0, 0.07);
+
+  /* Layout */
+  --measure: 68rem;
+  --measure-prose: 42rem;
+
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16161a;
+    --bg-raised: #1e1e23;
+    --bg-sunken: #121216;
+    --text: #ececeb;
+    --text-muted: #a1a1a0;
+    --text-faint: #77777a;
+    --border: #2e2e35;
+    --border-strong: #43434c;
+    --accent: #7aaaf0;
+    --accent-hover: #a3c5f7;
+    --accent-soft: #1c2a40;
+    --ok: #5fc07f;
+    --off: #6a6a70;
+
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.25);
+    --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset + base
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+
+  /* Footer sits at the bottom even on short pages. */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3 {
+  line-height: var(--lh-tight);
+  margin: 0;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Layout primitives
+   -------------------------------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: var(--sp-4);
+}
+
+@media (min-width: 40rem) {
+  .container {
+    padding-inline: var(--sp-6);
+  }
+}
+
+/* Vertical rhythm without margin bookkeeping on every child. */
+.stack > * + * {
+  margin-top: var(--sp-4);
+}
+
+.stack-lg > * + * {
+  margin-top: var(--sp-6);
+}
+
+.card-grid {
+  display: grid;
+  gap: var(--sp-4);
+  grid-template-columns: 1fr;
+  list-style: none;
+}
+
+@media (min-width: 40rem) {
+  .card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: var(--sp-5);
+  }
+}
+
+main {
+  flex: 1 0 auto;
+  padding-bottom: var(--sp-8);
+}
+
+/* Space between top-level blocks on a page, so pages don't have to manage it. */
+main > .container > * + * {
+  margin-top: var(--sp-7);
+}
+
+/* --------------------------------------------------------------------------
+   4. Topbar — deliberately not a nav bar
+   Transparent, borderless, in-flow (scrolls away). Reads as part of the page.
+   -------------------------------------------------------------------------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-block: var(--sp-4);
+  font-size: var(--fs-sm);
+}
+
+.topbar__back,
+.topbar__home {
+  color: var(--text-muted);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  /* Comfortable tap target without drawing a button. */
+  padding-block: var(--sp-2);
+  transition: color 0.15s ease;
+}
+
+.topbar__back:hover,
+.topbar__home:hover,
+.topbar__back:focus-visible,
+.topbar__home:focus-visible {
+  color: var(--text);
+}
+
+/* Long back labels truncate rather than wrapping or shoving the name offscreen. */
+.topbar__back {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.topbar__home {
+  flex: none;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* --------------------------------------------------------------------------
+   5. Page header + hero
+   -------------------------------------------------------------------------- */
+
+.page-header {
+  padding-block: var(--sp-5) var(--sp-6);
+}
+
+.page-header h1 {
+  font-size: var(--fs-2xl);
+}
+
+.page-header__lede {
+  margin-top: var(--sp-3);
+  color: var(--text-muted);
+  max-width: var(--measure-prose);
+}
+
+@media (min-width: 40rem) {
+  .page-header {
+    padding-block: var(--sp-6) var(--sp-7);
+  }
+
+  .page-header h1 {
+    font-size: var(--fs-3xl);
+  }
+}
+
+.hero {
+  padding-block: var(--sp-7) var(--sp-6);
+}
+
+.hero__name {
+  font-size: var(--fs-3xl);
+}
+
+.hero__bio {
+  margin-top: var(--sp-4);
+  color: var(--text-muted);
+  font-size: var(--fs-lg);
+  max-width: var(--measure-prose);
+}
+
+.hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+  margin-top: var(--sp-5);
+  list-style: none;
+  font-size: var(--fs-sm);
+}
+
+@media (min-width: 40rem) {
+  .hero {
+    padding-block: var(--sp-9) var(--sp-7);
+  }
+
+  .hero__name {
+    font-size: 3rem;
+  }
+}
+
+.section-heading {
+  font-size: var(--fs-xl);
+  margin-bottom: var(--sp-4);
+}
+
+/* --------------------------------------------------------------------------
+   6. Cards
+   -------------------------------------------------------------------------- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-5);
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+a.card:hover,
+a.card:focus-visible {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-hover);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a.card:hover,
+  a.card:focus-visible {
+    transform: translateY(-2px);
+  }
+}
+
+.card__title {
+  font-size: var(--fs-lg);
+  font-weight: 620;
+}
+
+.card__desc {
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+
+.card__meta {
+  margin-top: auto;
+  padding-top: var(--sp-3);
+  color: var(--text-faint);
+  font-size: var(--fs-xs);
+}
+
+/* --------------------------------------------------------------------------
+   7. Timeline entries — education, work experience
+   -------------------------------------------------------------------------- */
+
+.timeline {
+  list-style: none;
+}
+
+.timeline > li + li {
+  margin-top: var(--sp-5);
+}
+
+.timeline-item {
+  padding: var(--sp-5);
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.timeline-item__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.timeline-item__title {
+  font-size: var(--fs-lg);
+}
+
+.timeline-item__org {
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+
+.timeline-item__dates {
+  color: var(--text-faint);
+  font-size: var(--fs-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline-item__points {
+  margin-top: var(--sp-4);
+  padding-left: var(--sp-5);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+
+.timeline-item__points > li + li {
+  margin-top: var(--sp-2);
+}
+
+@media (min-width: 40rem) {
+  .timeline-item__head {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sp-4);
+  }
+
+  .timeline-item__dates {
+    flex: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Tags
+   -------------------------------------------------------------------------- */
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  list-style: none;
+}
+
+.tag {
+  display: inline-block;
+  padding: var(--sp-1) var(--sp-3);
+  background: var(--bg-sunken);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.tag--accent {
+  background: var(--accent-soft);
+  border-color: transparent;
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   9. CV page
+   -------------------------------------------------------------------------- */
+
+.cv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-5);
+}
+
+.button {
+  display: inline-block;
+  padding: var(--sp-3) var(--sp-5);
+  background: var(--accent);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-size: var(--fs-sm);
+  font-weight: 550;
+}
+
+.button:hover {
+  background: var(--accent-hover);
+  color: #fff;
+}
+
+.button--secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+}
+
+.button--secondary:hover {
+  background: var(--bg-sunken);
+  color: var(--text);
+}
+
+.cv-viewer {
+  width: 100%;
+  height: 70vh;
+  min-height: 24rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-raised);
+}
+
+@media (min-width: 64rem) {
+  .cv-viewer {
+    height: 85vh;
+    max-height: 60rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   10. Placeholder marker — everything in this skeleton pass
+   -------------------------------------------------------------------------- */
+
+.placeholder {
+  color: var(--text-faint);
+  font-style: italic;
+}
+
+.placeholder-note {
+  padding: var(--sp-4);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius);
+  color: var(--text-faint);
+  font-size: var(--fs-sm);
+  background: var(--bg-sunken);
+}
+
+/* --------------------------------------------------------------------------
+   11. Footer — quiet secondary navigation + API status
+   -------------------------------------------------------------------------- */
+
+.site-footer {
+  flex: none;
+  margin-top: var(--sp-8);
+  padding-block: var(--sp-6);
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+
+.footer__grid {
+  display: grid;
+  gap: var(--sp-6);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 40rem) {
+  .footer__grid {
+    grid-template-columns: 2fr 1fr;
+    gap: var(--sp-7);
+  }
+}
+
+.footer__heading {
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  font-weight: 600;
+  margin-bottom: var(--sp-3);
+}
+
+.footer__links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-2) var(--sp-4);
+  list-style: none;
+}
+
+@media (min-width: 40rem) {
+  .footer__links {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.footer__links a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.footer__links a:hover,
+.footer__links a:focus-visible {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+.footer__bottom {
+  margin-top: var(--sp-6);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  color: var(--text-faint);
+  font-size: var(--fs-xs);
+}
+
+/* --------------------------------------------------------------------------
+   12. Laptop API status widget
+   -------------------------------------------------------------------------- */
+
+.api-status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+}
+
+.api-status__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  color: var(--text-muted);
+  font: inherit;
+  font-size: var(--fs-xs);
+  cursor: pointer;
+}
+
+.api-status__toggle:hover {
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.api-status__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--off);
+  flex: none;
+}
+
+.api-status[data-state="online"] .api-status__dot {
+  background: var(--ok);
+}
+
+.api-status[data-state="checking"] .api-status__dot {
+  background: var(--text-faint);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .api-status[data-state="checking"] .api-status__dot {
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.api-status__output {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--sp-3);
+  background: var(--bg-sunken);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--text-muted);
+  overflow-x: auto;
+}
+
+.api-status__output[hidden] {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   13. No-JS fallback navigation
+   -------------------------------------------------------------------------- */
+
+.noscript-nav {
+  padding: var(--sp-4);
+  border-bottom: 1px solid var(--border);
+  font-size: var(--fs-sm);
+}
+
+.noscript-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+  list-style: none;
+}
+
+/* --------------------------------------------------------------------------
+   14. Utilities
+   -------------------------------------------------------------------------- */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

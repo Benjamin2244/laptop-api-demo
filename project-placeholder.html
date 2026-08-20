@@ -6,6 +6,7 @@
   <title>Placeholder Project · Benjamin Ward</title>
   <meta name="description" content="Placeholder project page for the portfolio skeleton." />
   <link rel="stylesheet" href="assets/css/site.css" />
+  <script>document.documentElement.classList.add("js");</script>
   <script src="assets/js/analytics.js" defer></script>
 </head>
 <body>
@@ -27,15 +28,15 @@
 
   <div data-topbar></div>
 
-  <main data-back="work-projects.html">
+  <main data-back="work-projects.html" data-hue="blue">
     <div class="container">
 
-      <header class="page-header">
+      <header class="page-header" data-reveal="head">
         <h1>Placeholder Project</h1>
         <p class="page-header__lede">Placeholder lede — one line on what this project is.</p>
       </header>
 
-      <section class="stack">
+      <section class="stack" data-reveal="block">
         <ul class="tag-list">
           <li class="tag tag--accent">Placeholder tech</li>
           <li class="tag">Placeholder tech</li>
@@ -51,7 +52,7 @@
         </p>
       </section>
 
-      <p class="placeholder-note">This page is deliberately reachable from both <a href="work-projects.html">Work Projects</a> and <a href="skills.html">Skills &amp; Tech</a>. The back link at the top names whichever one you arrived from; opened directly it falls back to Work Projects.</p>
+      <p class="placeholder-note" data-reveal="block">This page is deliberately reachable from both <a href="work-projects.html">Work Projects</a> and <a href="skills.html">Skills &amp; Tech</a>. The back link at the top names whichever one you arrived from; opened directly it falls back to Work Projects.</p>
 
     </div>
   </main>
@@ -60,5 +61,6 @@
 
   <script src="assets/js/api-status.js" defer></script>
   <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/reveal.js" defer></script>
 </body>
 </html>

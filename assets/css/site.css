@@ -1,27 +1,54 @@
 /* ==========================================================================
    Benjamin Ward — portfolio site
    Mobile-first. Base styles target narrow screens; min-width queries scale up.
+
+   Motion policy: every animation in this file is opt-out via
+   prefers-reduced-motion, and no content depends on JavaScript to become
+   visible (reveal states only engage once <html class="js"> is set).
    ========================================================================== */
+
+/* Smooth cross-document navigation where the browser supports it. Ignored
+   everywhere else, so it degrades to a normal page load. */
+@view-transition {
+  navigation: auto;
+}
 
 /* --------------------------------------------------------------------------
    1. Tokens
    -------------------------------------------------------------------------- */
 
 :root {
-  /* Colour — light */
-  --bg: #fbfbfa;
+  /* Surfaces — light */
+  --bg: #fcfcfd;
   --bg-raised: #ffffff;
-  --bg-sunken: #f2f2f0;
-  --text: #1c1c1a;
-  --text-muted: #6b6b66;
-  --text-faint: #91918b;
-  --border: #e3e3df;
-  --border-strong: #cfcfc9;
-  --accent: #1f5fbf;
-  --accent-hover: #17458c;
-  --accent-soft: #e8f0fc;
-  --ok: #2f8f4e;
-  --off: #a3a39d;
+  --bg-sunken: #f4f4f7;
+  --text: #16161d;
+  --text-muted: #5f5f6e;
+  --text-faint: #8b8b9a;
+  --border: #e6e6ed;
+  --border-strong: #cfcfda;
+
+  /* Brand */
+  --accent: #5b4bd6;
+  --accent-hover: #4536b8;
+  --accent-soft: #eeecfd;
+  --brand-1: #6d5cf0;
+  --brand-2: #b44ce0;
+  --brand-3: #35b8d8;
+
+  /* Per-section hues. Overridden by [data-hue] below. */
+  --hue-1: var(--brand-1);
+  --hue-2: var(--brand-2);
+
+  --ok: #14915b;
+  --off: #a3a3b0;
+
+  /* Ambient wash behind the page */
+  --wash-1: rgba(109, 92, 240, 0.13);
+  --wash-2: rgba(180, 76, 224, 0.10);
+  --wash-3: rgba(53, 184, 216, 0.10);
+
+  --glow-strength: 0.28;
 
   /* Spacing scale */
   --sp-1: 0.25rem;
@@ -43,15 +70,22 @@
   --fs-2xl: 1.75rem;
   --fs-3xl: 2.25rem;
 
-  --lh-tight: 1.2;
+  --lh-tight: 1.15;
   --lh-normal: 1.6;
 
   /* Shape */
-  --radius: 10px;
-  --radius-sm: 6px;
+  --radius: 14px;
+  --radius-sm: 8px;
   --radius-pill: 999px;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
-  --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(0, 0, 0, 0.07);
+  --shadow: 0 1px 2px rgba(16, 16, 40, 0.04), 0 4px 14px rgba(16, 16, 40, 0.05);
+  --shadow-hover: 0 2px 6px rgba(16, 16, 40, 0.06), 0 18px 40px rgba(16, 16, 40, 0.12);
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out-back: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --dur-fast: 0.18s;
+  --dur: 0.32s;
+  --dur-slow: 0.6s;
 
   /* Layout */
   --measure: 68rem;
@@ -63,24 +97,46 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #16161a;
-    --bg-raised: #1e1e23;
-    --bg-sunken: #121216;
-    --text: #ececeb;
-    --text-muted: #a1a1a0;
-    --text-faint: #77777a;
-    --border: #2e2e35;
-    --border-strong: #43434c;
-    --accent: #7aaaf0;
-    --accent-hover: #a3c5f7;
-    --accent-soft: #1c2a40;
-    --ok: #5fc07f;
-    --off: #6a6a70;
+    --bg: #0e0e14;
+    --bg-raised: #17171f;
+    --bg-sunken: #0a0a10;
+    --text: #eeeef4;
+    --text-muted: #a0a0b2;
+    --text-faint: #74748a;
+    --border: #26262f;
+    --border-strong: #3b3b48;
 
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.25);
-    --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.35);
+    --accent: #9d90ff;
+    --accent-hover: #b9aeff;
+    --accent-soft: #201c3d;
+    --brand-1: #8b7bff;
+    --brand-2: #cf6ef5;
+    --brand-3: #4fd2f0;
+
+    --ok: #47d18d;
+    --off: #5c5c6e;
+
+    --wash-1: rgba(139, 123, 255, 0.20);
+    --wash-2: rgba(207, 110, 245, 0.14);
+    --wash-3: rgba(79, 210, 240, 0.13);
+
+    --glow-strength: 0.5;
+
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 4px 14px rgba(0, 0, 0, 0.4);
+    --shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.5), 0 18px 40px rgba(0, 0, 0, 0.55);
   }
 }
+
+/* Section hues — same saturation and lightness family, so the grid reads as
+   one palette rather than a bag of colours. */
+[data-hue="indigo"] { --hue-1: #6366f1; --hue-2: #8b5cf6; }
+[data-hue="violet"] { --hue-1: #a855f7; --hue-2: #d946ef; }
+[data-hue="teal"]   { --hue-1: #14b8a6; --hue-2: #22d3ee; }
+[data-hue="blue"]   { --hue-1: #3b82f6; --hue-2: #06b6d4; }
+[data-hue="amber"]  { --hue-1: #f59e0b; --hue-2: #f97316; }
+[data-hue="cyan"]   { --hue-1: #06b6d4; --hue-2: #3b82f6; }
+[data-hue="rose"]   { --hue-1: #f43f5e; --hue-2: #ec4899; }
+[data-hue="green"]  { --hue-1: #10b981; --hue-2: #84cc16; }
 
 /* --------------------------------------------------------------------------
    2. Reset + base
@@ -105,10 +161,35 @@ body {
   line-height: var(--lh-normal);
   -webkit-font-smoothing: antialiased;
 
-  /* Footer sits at the bottom even on short pages. */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* Ambient colour wash. Fixed, so it can never add to scroll width, and
+   pointer-events:none so it never intercepts a click. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 40rem at 15% -10%, var(--wash-1), transparent 60%),
+    radial-gradient(45rem 35rem at 95% 5%, var(--wash-2), transparent 60%),
+    radial-gradient(50rem 40rem at 50% 110%, var(--wash-3), transparent 60%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body::before {
+    animation: drift 26s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes drift {
+  to {
+    transform: translate3d(0, -2.5%, 0) scale(1.08);
+  }
 }
 
 h1,
@@ -116,18 +197,12 @@ h2,
 h3 {
   line-height: var(--lh-tight);
   margin: 0;
-  font-weight: 650;
-  letter-spacing: -0.015em;
+  font-weight: 680;
+  letter-spacing: -0.02em;
 }
 
-p {
-  margin: 0;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-}
+p { margin: 0; }
+ul { margin: 0; padding: 0; }
 
 img {
   max-width: 100%;
@@ -138,12 +213,11 @@ img {
 a {
   color: var(--accent);
   text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
+  text-underline-offset: 3px;
+  transition: color var(--dur-fast) var(--ease);
 }
 
-a:hover {
-  color: var(--accent-hover);
-}
+a:hover { color: var(--accent-hover); }
 
 :focus-visible {
   outline: 2px solid var(--accent);
@@ -152,9 +226,12 @@ a:hover {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text);
 }
 
 /* --------------------------------------------------------------------------
@@ -169,19 +246,11 @@ a:hover {
 }
 
 @media (min-width: 40rem) {
-  .container {
-    padding-inline: var(--sp-6);
-  }
+  .container { padding-inline: var(--sp-6); }
 }
 
-/* Vertical rhythm without margin bookkeeping on every child. */
-.stack > * + * {
-  margin-top: var(--sp-4);
-}
-
-.stack-lg > * + * {
-  margin-top: var(--sp-6);
-}
+.stack > * + * { margin-top: var(--sp-4); }
+.stack-lg > * + * { margin-top: var(--sp-6); }
 
 .card-grid {
   display: grid;
@@ -202,14 +271,37 @@ main {
   padding-bottom: var(--sp-8);
 }
 
-/* Space between top-level blocks on a page, so pages don't have to manage it. */
 main > .container > * + * {
   margin-top: var(--sp-7);
 }
 
 /* --------------------------------------------------------------------------
-   4. Topbar — deliberately not a nav bar
-   Transparent, borderless, in-flow (scrolls away). Reads as part of the page.
+   4. Reveal on scroll
+
+   The hidden state only applies when JS is running AND motion is welcome —
+   so content is never trapped invisible.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    /* translateY only — a horizontal transform could widen the scroll box. */
+    transform: translateY(14px);
+    transition:
+      opacity var(--dur-slow) var(--ease),
+      transform var(--dur-slow) var(--ease);
+    transition-delay: var(--reveal-delay, 0s);
+  }
+
+  .js [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Topbar — deliberately not a nav bar
+   Transparent, borderless, in-flow. The only motion is on the arrow.
    -------------------------------------------------------------------------- */
 
 .topbar {
@@ -219,6 +311,7 @@ main > .container > * + * {
   gap: var(--sp-4);
   padding-block: var(--sp-4);
   font-size: var(--fs-sm);
+  view-transition-name: topbar;
 }
 
 .topbar__back,
@@ -226,9 +319,8 @@ main > .container > * + * {
   color: var(--text-muted);
   text-decoration: none;
   border-radius: var(--radius-sm);
-  /* Comfortable tap target without drawing a button. */
   padding-block: var(--sp-2);
-  transition: color 0.15s ease;
+  transition: color var(--dur-fast) var(--ease);
 }
 
 .topbar__back:hover,
@@ -238,47 +330,65 @@ main > .container > * + * {
   color: var(--text);
 }
 
-/* Long back labels truncate rather than wrapping or shoving the name offscreen. */
 .topbar__back {
+  min-width: 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+}
+
+/* Truncation lives on the label, so a long section name ellipsises instead
+   of wrapping or shoving the name off the right edge. */
+.topbar__label {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.topbar__arrow {
+  display: inline-block;
+  flex: none;
+  transition: transform var(--dur) var(--ease-out-back);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .topbar__back:hover .topbar__arrow,
+  .topbar__back:focus-visible .topbar__arrow {
+    transform: translateX(-4px);
+  }
+}
+
+/* Underline that grows from the left, instead of a blunt hover colour. */
 .topbar__home {
   flex: none;
-  font-weight: 600;
+  font-weight: 620;
   letter-spacing: -0.01em;
+  position: relative;
+}
+
+.topbar__home::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--sp-1);
+  height: 1.5px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur) var(--ease);
+}
+
+.topbar__home:hover::after,
+.topbar__home:focus-visible::after {
+  transform: scaleX(1);
 }
 
 /* --------------------------------------------------------------------------
-   5. Page header + hero
+   6. Hero + page headers
    -------------------------------------------------------------------------- */
-
-.page-header {
-  padding-block: var(--sp-5) var(--sp-6);
-}
-
-.page-header h1 {
-  font-size: var(--fs-2xl);
-}
-
-.page-header__lede {
-  margin-top: var(--sp-3);
-  color: var(--text-muted);
-  max-width: var(--measure-prose);
-}
-
-@media (min-width: 40rem) {
-  .page-header {
-    padding-block: var(--sp-6) var(--sp-7);
-  }
-
-  .page-header h1 {
-    font-size: var(--fs-3xl);
-  }
-}
 
 .hero {
   padding-block: var(--sp-7) var(--sp-6);
@@ -286,6 +396,21 @@ main > .container > * + * {
 
 .hero__name {
   font-size: var(--fs-3xl);
+  background: linear-gradient(100deg, var(--brand-1), var(--brand-2) 45%, var(--brand-3));
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero__name {
+    animation: sheen 9s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes sheen {
+  to { background-position: 100% 0; }
 }
 
 .hero__bio {
@@ -304,14 +429,82 @@ main > .container > * + * {
   font-size: var(--fs-sm);
 }
 
-@media (min-width: 40rem) {
-  .hero {
-    padding-block: var(--sp-9) var(--sp-7);
-  }
+.hero__links a {
+  text-decoration: none;
+  position: relative;
+  padding-block: var(--sp-1);
+}
 
-  .hero__name {
-    font-size: 3rem;
+.hero__links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur) var(--ease);
+}
+
+.hero__links a:hover::after,
+.hero__links a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (min-width: 40rem) {
+  .hero { padding-block: var(--sp-9) var(--sp-7); }
+  .hero__name { font-size: 3.25rem; }
+}
+
+.page-header {
+  padding-block: var(--sp-5) var(--sp-6);
+  position: relative;
+}
+
+.page-header h1 {
+  font-size: var(--fs-2xl);
+  background: linear-gradient(100deg, var(--hue-1), var(--hue-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Short coloured rule keyed to the page's hue. */
+.page-header::before {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 3px;
+  margin-bottom: var(--sp-4);
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--hue-1), var(--hue-2));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .page-header::before {
+    animation: rule-in var(--dur-slow) var(--ease) both;
   }
+}
+
+@keyframes rule-in {
+  from { transform: scaleX(0); opacity: 0; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+
+.page-header::before { transform-origin: left; }
+
+.page-header__lede {
+  margin-top: var(--sp-3);
+  color: var(--text-muted);
+  max-width: var(--measure-prose);
+}
+
+@media (min-width: 40rem) {
+  .page-header { padding-block: var(--sp-6) var(--sp-7); }
+  .page-header h1 { font-size: var(--fs-3xl); }
 }
 
 .section-heading {
@@ -320,10 +513,11 @@ main > .container > * + * {
 }
 
 /* --------------------------------------------------------------------------
-   6. Cards
+   7. Cards
    -------------------------------------------------------------------------- */
 
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--sp-2);
@@ -333,25 +527,65 @@ main > .container > * + * {
   border-radius: var(--radius);
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    border-color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+
+/* Hue bar across the top, revealed on hover. */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--hue-1), var(--hue-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur) var(--ease);
+}
+
+/* Soft hue glow washing up from the card's own colour. */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: -40% -20% auto -20%;
+  height: 140%;
+  z-index: -1;
+  background: radial-gradient(60% 60% at 50% 0%, var(--hue-1), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
 }
 
 a.card:hover,
 a.card:focus-visible {
-  border-color: var(--border-strong);
+  border-color: color-mix(in srgb, var(--hue-1) 45%, var(--border));
   box-shadow: var(--shadow-hover);
+}
+
+a.card:hover::before,
+a.card:focus-visible::before {
+  transform: scaleX(1);
+}
+
+a.card:hover::after,
+a.card:focus-visible::after {
+  opacity: calc(var(--glow-strength) * 0.5);
 }
 
 @media (prefers-reduced-motion: no-preference) {
   a.card:hover,
   a.card:focus-visible {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
   }
 }
 
 .card__title {
   font-size: var(--fs-lg);
-  font-weight: 620;
+  font-weight: 640;
+  letter-spacing: -0.015em;
 }
 
 .card__desc {
@@ -364,25 +598,73 @@ a.card:focus-visible {
   padding-top: var(--sp-3);
   color: var(--text-faint);
   font-size: var(--fs-xs);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+/* Arrow that slides out on hover. */
+.card__meta::after {
+  content: "→";
+  margin-left: auto;
+  color: var(--hue-1);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+a.card:hover .card__meta::after,
+a.card:focus-visible .card__meta::after {
+  opacity: 1;
+  transform: none;
 }
 
 /* --------------------------------------------------------------------------
-   7. Timeline entries — education, work experience
+   8. Timeline entries
    -------------------------------------------------------------------------- */
 
 .timeline {
   list-style: none;
+  position: relative;
 }
 
-.timeline > li + li {
-  margin-top: var(--sp-5);
-}
+.timeline > li + li { margin-top: var(--sp-4); }
 
 .timeline-item {
+  position: relative;
   padding: var(--sp-5);
+  padding-left: var(--sp-6);
   background: var(--bg-raised);
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  overflow: hidden;
+  transition:
+    border-color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+
+/* Hue spine down the left edge. */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--hue-1), var(--hue-2));
+  transform: scaleY(0.35);
+  transform-origin: top;
+  opacity: 0.65;
+  transition: transform var(--dur-slow) var(--ease), opacity var(--dur) var(--ease);
+}
+
+.timeline-item:hover {
+  border-color: color-mix(in srgb, var(--hue-1) 35%, var(--border));
+  box-shadow: var(--shadow);
+}
+
+.timeline-item:hover::before {
+  transform: scaleY(1);
+  opacity: 1;
 }
 
 .timeline-item__head {
@@ -391,9 +673,7 @@ a.card:focus-visible {
   gap: var(--sp-1);
 }
 
-.timeline-item__title {
-  font-size: var(--fs-lg);
-}
+.timeline-item__title { font-size: var(--fs-lg); }
 
 .timeline-item__org {
   color: var(--text-muted);
@@ -404,6 +684,10 @@ a.card:focus-visible {
   color: var(--text-faint);
   font-size: var(--fs-xs);
   font-variant-numeric: tabular-nums;
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: var(--radius-pill);
+  background: var(--bg-sunken);
+  align-self: flex-start;
 }
 
 .timeline-item__points {
@@ -413,9 +697,9 @@ a.card:focus-visible {
   font-size: var(--fs-sm);
 }
 
-.timeline-item__points > li + li {
-  margin-top: var(--sp-2);
-}
+.timeline-item__points > li + li { margin-top: var(--sp-2); }
+
+.timeline-item__points::marker { color: var(--hue-1); }
 
 @media (min-width: 40rem) {
   .timeline-item__head {
@@ -425,13 +709,11 @@ a.card:focus-visible {
     gap: var(--sp-4);
   }
 
-  .timeline-item__dates {
-    flex: none;
-  }
+  .timeline-item__dates { flex: none; }
 }
 
 /* --------------------------------------------------------------------------
-   8. Tags
+   9. Tags
    -------------------------------------------------------------------------- */
 
 .tag-list {
@@ -444,21 +726,36 @@ a.card:focus-visible {
 .tag {
   display: inline-block;
   padding: var(--sp-1) var(--sp-3);
-  background: var(--bg-sunken);
+  background: var(--bg-raised);
   border: 1px solid var(--border);
   border-radius: var(--radius-pill);
   font-size: var(--fs-sm);
   color: var(--text-muted);
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.tag:hover {
+  border-color: color-mix(in srgb, var(--hue-1) 50%, var(--border));
+  color: var(--text);
+  background: color-mix(in srgb, var(--hue-1) 8%, var(--bg-raised));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tag:hover { transform: translateY(-2px); }
 }
 
 .tag--accent {
-  background: var(--accent-soft);
-  border-color: transparent;
-  color: var(--accent);
+  background: color-mix(in srgb, var(--hue-1) 12%, var(--bg-raised));
+  border-color: color-mix(in srgb, var(--hue-1) 40%, transparent);
+  color: var(--hue-1);
 }
 
 /* --------------------------------------------------------------------------
-   9. CV page
+   10. Buttons + CV page
    -------------------------------------------------------------------------- */
 
 .cv-actions {
@@ -469,30 +766,44 @@ a.card:focus-visible {
 }
 
 .button {
+  position: relative;
   display: inline-block;
   padding: var(--sp-3) var(--sp-5);
-  background: var(--accent);
+  background: linear-gradient(100deg, var(--brand-1), var(--brand-2));
   color: #fff;
   border-radius: var(--radius-sm);
   text-decoration: none;
   font-size: var(--fs-sm);
-  font-weight: 550;
+  font-weight: 570;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--brand-1) 30%, transparent);
+  transition:
+    box-shadow var(--dur) var(--ease),
+    transform var(--dur) var(--ease),
+    filter var(--dur) var(--ease);
 }
 
 .button:hover {
-  background: var(--accent-hover);
   color: #fff;
+  filter: saturate(1.15);
+  box-shadow: 0 8px 26px color-mix(in srgb, var(--brand-1) 42%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .button:hover { transform: translateY(-2px); }
+  .button:active { transform: translateY(0); }
 }
 
 .button--secondary {
   background: transparent;
   color: var(--text);
   border: 1px solid var(--border-strong);
+  box-shadow: none;
 }
 
 .button--secondary:hover {
   background: var(--bg-sunken);
   color: var(--text);
+  box-shadow: var(--shadow);
 }
 
 .cv-viewer {
@@ -502,17 +813,15 @@ a.card:focus-visible {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--bg-raised);
+  box-shadow: var(--shadow);
 }
 
 @media (min-width: 64rem) {
-  .cv-viewer {
-    height: 85vh;
-    max-height: 60rem;
-  }
+  .cv-viewer { height: 85vh; max-height: 60rem; }
 }
 
 /* --------------------------------------------------------------------------
-   10. Placeholder marker — everything in this skeleton pass
+   11. Placeholder markers
    -------------------------------------------------------------------------- */
 
 .placeholder {
@@ -526,11 +835,11 @@ a.card:focus-visible {
   border-radius: var(--radius);
   color: var(--text-faint);
   font-size: var(--fs-sm);
-  background: var(--bg-sunken);
+  background: color-mix(in srgb, var(--hue-1) 4%, var(--bg-sunken));
 }
 
 /* --------------------------------------------------------------------------
-   11. Footer — quiet secondary navigation + API status
+   12. Footer
    -------------------------------------------------------------------------- */
 
 .site-footer {
@@ -540,6 +849,7 @@ a.card:focus-visible {
   border-top: 1px solid var(--border);
   color: var(--text-muted);
   font-size: var(--fs-sm);
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--brand-1) 5%, transparent));
 }
 
 .footer__grid {
@@ -558,9 +868,9 @@ a.card:focus-visible {
 .footer__heading {
   font-size: var(--fs-xs);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.09em;
   color: var(--text-faint);
-  font-weight: 600;
+  font-weight: 620;
   margin-bottom: var(--sp-3);
 }
 
@@ -572,20 +882,31 @@ a.card:focus-visible {
 }
 
 @media (min-width: 40rem) {
-  .footer__links {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+  .footer__links { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 .footer__links a {
   color: var(--text-muted);
   text-decoration: none;
+  display: inline-block;
+  transition: color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
 }
 
 .footer__links a:hover,
 .footer__links a:focus-visible {
   color: var(--text);
-  text-decoration: underline;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .footer__links a:hover,
+  .footer__links a:focus-visible {
+    transform: translateX(3px);
+  }
+}
+
+.footer__links a[aria-current="page"] {
+  color: var(--text);
+  font-weight: 570;
 }
 
 .footer__bottom {
@@ -602,7 +923,7 @@ a.card:focus-visible {
 }
 
 /* --------------------------------------------------------------------------
-   12. Laptop API status widget
+   13. Laptop API status widget
    -------------------------------------------------------------------------- */
 
 .api-status {
@@ -617,18 +938,23 @@ a.card:focus-visible {
   align-items: center;
   gap: var(--sp-2);
   padding: var(--sp-2) var(--sp-3);
-  background: transparent;
+  background: var(--bg-raised);
   border: 1px solid var(--border);
   border-radius: var(--radius-pill);
   color: var(--text-muted);
   font: inherit;
   font-size: var(--fs-xs);
   cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
 }
 
 .api-status__toggle:hover {
   border-color: var(--border-strong);
   color: var(--text);
+  box-shadow: var(--shadow);
 }
 
 .api-status__dot {
@@ -637,10 +963,12 @@ a.card:focus-visible {
   border-radius: 50%;
   background: var(--off);
   flex: none;
+  transition: background var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
 
 .api-status[data-state="online"] .api-status__dot {
   background: var(--ok);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 22%, transparent);
 }
 
 .api-status[data-state="checking"] .api-status__dot {
@@ -651,12 +979,18 @@ a.card:focus-visible {
   .api-status[data-state="checking"] .api-status__dot {
     animation: pulse 1.2s ease-in-out infinite;
   }
+
+  .api-status[data-state="online"] .api-status__dot {
+    animation: breathe 2.6s ease-in-out infinite;
+  }
 }
 
 @keyframes pulse {
-  50% {
-    opacity: 0.3;
-  }
+  50% { opacity: 0.25; }
+}
+
+@keyframes breathe {
+  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--ok) 0%, transparent); }
 }
 
 .api-status__output {
@@ -674,12 +1008,20 @@ a.card:focus-visible {
   overflow-x: auto;
 }
 
-.api-status__output[hidden] {
-  display: none;
+.api-status__output[hidden] { display: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .api-status__output:not([hidden]) {
+    animation: slide-down var(--dur) var(--ease) both;
+  }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-6px); }
 }
 
 /* --------------------------------------------------------------------------
-   13. No-JS fallback navigation
+   14. No-JS fallback navigation
    -------------------------------------------------------------------------- */
 
 .noscript-nav {
@@ -696,7 +1038,7 @@ a.card:focus-visible {
 }
 
 /* --------------------------------------------------------------------------
-   14. Utilities
+   15. Utilities
    -------------------------------------------------------------------------- */
 
 .visually-hidden {
@@ -709,4 +1051,68 @@ a.card:focus-visible {
   clip: rect(0 0 0 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   16. Print
+
+   Someone will hit Cmd+P on a CV site. Without this, anything below the fold
+   that has not been scrolled into view would print at opacity 0.
+   -------------------------------------------------------------------------- */
+
+@media print {
+  /* Snap to final state — a print must never capture a transition mid-flight. */
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .js [data-reveal],
+  .js [data-reveal]:not(.is-revealed) {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  body::before,
+  .site-footer,
+  .topbar,
+  .api-status {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .card,
+  .timeline-item {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+
+  .hero__name,
+  .page-header h1 {
+    -webkit-text-fill-color: #000;
+    color: #000;
+  }
+
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+}
+
+/* Belt and braces: kill every remaining animation for reduced-motion users. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

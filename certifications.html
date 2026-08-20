@@ -6,6 +6,7 @@
   <title>Certifications · Benjamin Ward</title>
   <meta name="description" content="Certifications and courses completed by Benjamin Ward." />
   <link rel="stylesheet" href="assets/css/site.css" />
+  <script>document.documentElement.classList.add("js");</script>
   <script src="assets/js/analytics.js" defer></script>
 </head>
 <body>
@@ -26,16 +27,16 @@
 
   <div data-topbar></div>
 
-  <main data-back="index.html">
+  <main data-back="index.html" data-hue="amber">
     <div class="container">
 
-      <header class="page-header">
+      <header class="page-header" data-reveal="head">
         <h1>Certifications</h1>
         <p class="page-header__lede">Placeholder lede — a line introducing certifications and courses.</p>
       </header>
 
       <ul class="timeline">
-        <li class="timeline-item">
+        <li class="timeline-item" data-reveal="item">
           <div class="timeline-item__head">
             <div>
               <h2 class="timeline-item__title">Placeholder certification</h2>
@@ -47,7 +48,7 @@
             <li>Placeholder line — what it covered.</li>
           </ul>
         </li>
-        <li class="timeline-item">
+        <li class="timeline-item" data-reveal="item">
           <div class="timeline-item__head">
             <div>
               <h2 class="timeline-item__title">Placeholder certification</h2>
@@ -59,7 +60,7 @@
             <li>Placeholder line — what it covered.</li>
           </ul>
         </li>
-        <li class="timeline-item">
+        <li class="timeline-item" data-reveal="item">
           <div class="timeline-item__head">
             <div>
               <h2 class="timeline-item__title">Placeholder certification</h2>
@@ -72,7 +73,7 @@
           </ul>
         </li>
       </ul>
-      <p class="placeholder-note">Skeleton pass — real certifications and issuers go here.</p>
+      <p class="placeholder-note" data-reveal="block">Skeleton pass — real certifications and issuers go here.</p>
 
     </div>
   </main>
@@ -81,5 +82,6 @@
 
   <script src="assets/js/api-status.js" defer></script>
   <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/reveal.js" defer></script>
 </body>
 </html>

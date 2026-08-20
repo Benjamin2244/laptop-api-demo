@@ -15,8 +15,10 @@
 (function () {
   "use strict";
 
-  var STAGGER_MS = 70;
-  var MAX_STAGGER_MS = 350;
+  /* Kept short: with a denser grid, more items reveal at once, and a long
+     cascade would read as the page being slow rather than as polish. */
+  var STAGGER_MS = 45;
+  var MAX_STAGGER_MS = 200;
 
   var motionOK =
     !window.matchMedia ||

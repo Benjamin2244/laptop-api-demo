@@ -1,85 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-36P5QKRMDY"></script>
-  <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-36P5QKRMDY');
-  </script>
-  <!-- Google tag (gtag.js) -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home Page</title>
-  <style>
-    nav {
-      margin-bottom: 2em;
-    }
-    nav a {
-      margin-right: 1em;
-      text-decoration: none;
-      color: #0074d9;
-    }
-    section {
-      margin-bottom: 2em;
-      padding: 1em;
-      border: 1px solid #eee;
-      border-radius: 6px;
-      background: #fafafa;
-    }
-    h2 {
-      margin-top: 0;
-    }
-  </style>
+  <title>Benjamin Ward</title>
+  <meta name="description" content="Portfolio and CV of Benjamin Ward — computer science, data science, and software engineering." />
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <script src="assets/js/analytics.js" defer></script>
 </head>
 <body>
-  <h1>Welcome to My Homepage</h1>
-  <nav>
-    <a href="cv_page.html">CV</a>
-    <a href="#written-projects">Written Projects</a>
-    <a href="#fun-projects">Fun Projects</a>
-    <a href="#api-demo">API Demo</a>
-  </nav>
+  <noscript>
+    <div class="noscript-nav">
+      <ul>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="work-experience.html">Work Experience</a></li>
+        <li><a href="work-projects.html">Work Projects</a></li>
+        <li><a href="personal-projects.html">Personal Projects</a></li>
+        <li><a href="certifications.html">Certifications</a></li>
+        <li><a href="skills.html">Skills &amp; Tech</a></li>
+        <li><a href="extracurricular.html">Extracurricular</a></li>
+        <li><a href="cv.html">CV</a></li>
+      </ul>
+    </div>
+  </noscript>
 
-  <section id="written-projects">
-    <h2>Written Projects</h2>
-    <p>Descriptions or links to your written projects.</p>
-  </section>
+  <div data-topbar></div>
 
-  <section id="fun-projects">
-    <h2>Fun Projects</h2>
-    <p>Descriptions or links to your fun/side projects.</p>
-  </section>
+  <main data-back="index.html">
+    <div class="container">
 
-  <section id="api-demo">
-    <h2>Laptop API Status</h2>
-    <button id="checkButton">Check API</button>
-    <pre id="output">Click the button to test the API.</pre>
-  </section>
+      <section class="hero">
+        <h1 class="hero__name">Benjamin Ward</h1>
+        <p class="hero__bio placeholder">
+          Placeholder bio — one or two lines on who you are and what you build.
+          Replace this in the content pass.
+        </p>
+        <ul class="hero__links">
+          <li><a href="mailto:Benjaminward2405@gmail.com">Email</a></li>
+          <li><a href="https://www.linkedin.com/in/benjamin-ward-256851217" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://github.com/Benjamin2244" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="cv.html">CV</a></li>
+        </ul>
+      </section>
 
-  <script>
-    const output = document.getElementById("output");
-    function testFetch() {
-      console.log("pressed");
-      output.textContent = "Loading...";
-      fetch("https://measured-boar-awaited.ngrok-free.app/api/data", {
-        headers: {
-          "ngrok-skip-browser-warning": "1"
-        }
-      })
-      .then(response => response.json())
-      .then(data => {
-        output.textContent = JSON.stringify(data, null, 2);
-      })
-      .catch(error => {
-        output.textContent = "API not available: " + error;
-      });
-    }
-    document.getElementById("checkButton").addEventListener("click", testFetch);
-    // Uncomment to auto-fetch on load:
-    // testFetch();
-  </script>
+      <section>
+        <h2 class="section-heading">Sections</h2>
+        <ul class="card-grid">
+
+          <li>
+            <a class="card" href="education.html">
+              <span class="card__title">Education</span>
+              <span class="card__desc">UCL, undergraduate degree, and earlier schooling.</span>
+              <span class="card__meta">3 entries</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="card" href="work-experience.html">
+              <span class="card__title">Work Experience</span>
+              <span class="card__desc">Roles, internships, and what each one involved.</span>
+              <span class="card__meta">Placeholder count</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="card" href="work-projects.html">
+              <span class="card__title">Work Projects</span>
+              <span class="card__desc">Things built on the job, and the part you played.</span>
+              <span class="card__meta">Placeholder count</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="card" href="personal-projects.html">
+              <span class="card__title">Personal Projects</span>
+              <span class="card__desc">Side projects, experiments, and things built for fun.</span>
+              <span class="card__meta">Placeholder count</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="card" href="certifications.html">
+              <span class="card__title">Certifications</span>
+              <span class="card__desc">Courses and credentials, with what each covered.</span>
+              <span class="card__meta">Placeholder count</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="card" href="skills.html">
+              <span class="card__title">Skills &amp; Tech</span>
+              <span class="card__desc">Languages and tools, and where they have been used.</span>
+              <span class="card__meta">Placeholder count</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="card" href="extracurricular.html">
+              <span class="card__title">Extracurricular</span>
+              <span class="card__desc">Student rep work, competitions, and volunteering.</span>
+              <span class="card__meta">Placeholder count</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="card" href="cv.html">
+              <span class="card__title">CV</span>
+              <span class="card__desc">Read the full CV in the browser, or download the PDF.</span>
+              <span class="card__meta">PDF</span>
+            </a>
+          </li>
+
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <footer data-site-footer></footer>
+
+  <script src="assets/js/api-status.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
 </body>
 </html>

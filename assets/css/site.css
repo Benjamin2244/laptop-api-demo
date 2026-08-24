@@ -949,6 +949,18 @@ a.card:focus-visible .card__meta::after {
   .cv-viewer { height: 85vh; max-height: 60rem; }
 }
 
+/* Project video. Styled now so dropping a file in needs no CSS work. */
+.project-video {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-sunken);
+  box-shadow: var(--shadow);
+}
+
 /* --------------------------------------------------------------------------
    11. Placeholder markers
    -------------------------------------------------------------------------- */

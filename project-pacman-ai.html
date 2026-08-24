@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pac-Man AI · Benjamin Ward</title>
+  <meta name="description" content="A Pac-Man agent built as a Markov decision process and solved with value iteration, under partial visibility and non-deterministic movement." />
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="assets/js/analytics.js" defer></script>
+</head>
+<body>
+  <noscript>
+    <div class="noscript-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="work-experience.html">Work Experience</a></li>
+        <li><a href="work-projects.html">Work Projects</a></li>
+        <li><a href="personal-projects.html">Personal Projects</a></li>
+        <li><a href="certifications.html">Certifications</a></li>
+        <li><a href="skills.html">Skills &amp; Tech</a></li>
+        <li><a href="extracurricular.html">Extracurricular</a></li>
+        <li><a href="cv.html">CV</a></li>
+      </ul>
+    </div>
+  </noscript>
+
+  <div data-topbar></div>
+
+  <main data-back="degree-bsc.html" data-hue="indigo">
+    <div class="container">
+
+      <header class="page-header" data-reveal="head">
+        <h1>Pac-Man AI</h1>
+        <p class="page-header__lede">
+          Make Pac-Man play well, seeing the world only through a restricted API
+          — and, in the hardest version, seeing almost none of it. Coursework
+          during my BSc.
+        </p>
+        <ul class="tag-list timeline-item__tags">
+          <li class="tag tag--accent">Python</li>
+          <li class="tag">Markov decision process</li>
+          <li class="tag">Value iteration</li>
+        </ul>
+      </header>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">The setup</h2>
+        <p>
+          We were handed a Pac-Man clone in Python and a limited set of API calls
+          for asking about the world. Everything the agent knew had to come
+          through those calls, so the work was in deciding what to do with the
+          information rather than in reading the game state directly.
+        </p>
+        <p>
+          The coursework came in versions of increasing difficulty. The easier
+          ones granted full visibility — the whole map, every ghost, every piece
+          of food. The hardest took nearly all of that away.
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">The hard version</h2>
+        <p>
+          Two things made the final challenge genuinely difficult, and they
+          compound each other.
+        </p>
+        <p>
+          <strong>Pac-Man could only see a few squares around himself.</strong>
+          No map, no distant ghosts, no knowing where the remaining food was.
+          Decisions had to be made from a small moving window of the world.
+        </p>
+        <p>
+          <strong>Movement was not deterministic.</strong> Choosing a direction
+          gave an 80% chance of going that way, and 10% each of veering left or
+          right instead. That sounds survivable until you are running from a
+          ghost down a corridor: a bad roll turns you into a wall, you do not
+          move at all, and the ghost closes the gap. Losing a life to a
+          coin-flip you never chose is the defining hazard of that version.
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Modelling it</h2>
+        <p>
+          I treated the world as a <strong>Markov decision process</strong> and
+          solved it with <strong>value iteration</strong>: assign a reward to
+          each square, then repeatedly propagate values outward until they settle,
+          so every square carries not just what is on it but how good it is to be
+          near what is around it. Pac-Man then walks uphill.
+        </p>
+        <p>
+          Because the transition model is the 80/10/10 split rather than
+          certainty, the values already account for the possibility of ending up
+          somewhere you did not choose.
+        </p>
+        <p>The reward function had a state to it:</p>
+        <ul class="timeline-item__points">
+          <li>Ghosts were terminal states with a large negative reward — reaching one ends the run.</li>
+          <li>Food carried a small positive reward.</li>
+          <li>Capsules carried a larger one, being worth going out of the way for.</li>
+          <li>
+            While the capsule was active and ghosts were edible, those values
+            flipped: capsules dropped low, so a second one would not be wasted
+            during the window, and ghosts became strongly positive — worth
+            chasing rather than fleeing.
+          </li>
+        </ul>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Giving ghosts a bigger footprint</h2>
+        <p>
+          The part I was most pleased with. Penalising only the square a ghost
+          occupies quietly assumes you can always step away from it — and with
+          non-deterministic movement, you cannot. Standing next to a ghost to
+          grab one last piece of food is a bet, and roughly one time in five the
+          move you chose is not the move you make.
+        </p>
+        <p>
+          So I widened the danger. The squares around a ghost were treated as
+          terminal too, giving each ghost a bubble several squares across and
+          making it behave, as far as the algorithm was concerned, like a much
+          larger ghost.
+        </p>
+        <p>
+          The effect was that Pac-Man stopped taking marginal trades. Food and
+          capsules sitting right beside a ghost were no longer worth it, because
+          the value function now priced in the chance of a move going wrong at
+          exactly the moment it mattered most. It made the agent noticeably more
+          cautious, and noticeably more likely to finish the level.
+        </p>
+      </section>
+
+      <!-- TODO: video of the final challenge goes here. Ben is supplying the
+           file. When it lands, drop it in assets/video/ and uncomment:
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Watch it play</h2>
+        <video class="project-video" controls preload="metadata"
+               src="assets/video/pacman.mp4"
+               poster="assets/video/pacman-poster.jpg">
+          Your browser cannot play this video.
+          <a href="assets/video/pacman.mp4">Download it instead.</a>
+        </video>
+      </section>
+      -->
+
+    </div>
+  </main>
+
+  <footer data-site-footer></footer>
+
+  <script src="assets/js/api-status.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/reveal.js" defer></script>
+</body>
+</html>

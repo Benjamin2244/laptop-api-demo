@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explainability under data augmentation · Benjamin Ward</title>
+  <meta name="description" content="MSc dissertation — measuring whether fixing class imbalance with SMOTE or a GAN changes what a model actually relies on, using SHAP." />
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="assets/js/analytics.js" defer></script>
+</head>
+<body>
+  <noscript>
+    <div class="noscript-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="work-experience.html">Work Experience</a></li>
+        <li><a href="work-projects.html">Work Projects</a></li>
+        <li><a href="personal-projects.html">Personal Projects</a></li>
+        <li><a href="certifications.html">Certifications</a></li>
+        <li><a href="skills.html">Skills &amp; Tech</a></li>
+        <li><a href="extracurricular.html">Extracurricular</a></li>
+        <li><a href="cv.html">CV</a></li>
+      </ul>
+    </div>
+  </noscript>
+
+  <div data-topbar></div>
+
+  <main data-back="degree-msc.html" data-hue="indigo">
+    <div class="container">
+
+      <header class="page-header" data-reveal="head">
+        <h1>Explainability under data augmentation</h1>
+        <p class="page-header__lede">My MSc dissertation at UCL. Fixing class imbalance with synthetic data makes the numbers better — but does the model still rely on the same things?</p>
+        <ul class="tag-list timeline-item__tags">
+          <li class="tag tag--accent">Python</li>
+          <li class="tag">PyTorch</li>
+          <li class="tag">SHAP</li>
+          <li class="tag">Optuna</li>
+          <li class="tag">2025</li>
+        </ul>
+      </header>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">The question</h2>
+        <p>
+          When a dataset has far more of one class than another, the usual fix is to manufacture more of the rare one. Whether that worked is normally judged on accuracy or F1 — which tells you the model gets more answers right, but not whether it is getting them right for the same reasons.
+        </p>
+        <p>
+          This project treats that gap as the thing to measure: does augmentation quietly change what a model pays attention to, and does it matter which augmentation method you pick?
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">The experiment</h2>
+        <p>
+          Three datasets of deliberately different shape: heart failure prediction (medical, around 900 rows), a personality dataset (around 2,900), and forest cover type (around 580,000 rows, and naturally imbalanced rather than made so).
+        </p>
+        <ul class="timeline-item__points">
+          <li>For the balanced datasets, imbalance was introduced on purpose at three severities — roughly 1:10, 1:2 and 1:1 — so any effect could be tracked as the imbalance got worse.</li>
+          <li>Two augmentation methods were compared: <strong>SMOTE</strong>, which interpolates between existing minority examples, and <strong>CTGAN</strong>, a GAN trained on the minority class alone to generate new synthetic rows.</li>
+          <li>A control model was trained on the untouched imbalanced data, giving every augmented model something to be compared against.</li>
+        </ul>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Measuring the change</h2>
+        <p>
+          Every model is explained with <strong>SHAP</strong>, which gives a contribution score per feature. Averaging those gives a profile of what that model leans on.
+        </p>
+        <p>
+          Each augmented model&rsquo;s profile is then compared against the control&rsquo;s: feature by feature, and as a single Euclidean distance across the whole feature vector — so &ldquo;how far has the reasoning moved&rdquo; reduces to one number that can be compared across methods and severities.
+        </p>
+        <p>
+          F1 and confusion matrices are tracked alongside, so a shift in explanation can be read next to whether performance actually improved at all.
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Making it reproducible</h2>
+        <p>
+          Comparing explanations only means something if the differences come from the augmentation rather than from run-to-run noise, so every random source is seeded — Python, NumPy and PyTorch, with cuDNN pinned to deterministic mode.
+        </p>
+        <ul class="timeline-item__points">
+          <li>A small PyTorch network, with Optuna tuning learning rate and batch size rather than leaving them arbitrary.</li>
+          <li>The pipeline is split into preprocessing, augmentation, training and analysis stages, each writing its output to disk.</li>
+          <li>Finished stages are detected and skipped on a rerun, so a run that takes hours does not start from nothing after an interruption.</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <footer data-site-footer></footer>
+
+  <script src="assets/js/api-status.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/reveal.js" defer></script>
+</body>
+</html>

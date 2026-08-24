@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hate speech detector · Benjamin Ward</title>
+  <meta name="description" content="A Python hate speech detector that separately identifies whether text targets the LGBTQIA+ community." />
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="assets/js/analytics.js" defer></script>
+</head>
+<body>
+  <noscript>
+    <div class="noscript-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="work-experience.html">Work Experience</a></li>
+        <li><a href="work-projects.html">Work Projects</a></li>
+        <li><a href="personal-projects.html">Personal Projects</a></li>
+        <li><a href="certifications.html">Certifications</a></li>
+        <li><a href="skills.html">Skills &amp; Tech</a></li>
+        <li><a href="extracurricular.html">Extracurricular</a></li>
+        <li><a href="cv.html">CV</a></li>
+      </ul>
+    </div>
+  </noscript>
+
+  <div data-topbar></div>
+
+  <main data-back="degree-bsc.html" data-hue="indigo">
+    <div class="container">
+
+      <header class="page-header" data-reveal="head">
+        <h1>Hate speech detector</h1>
+        <p class="page-header__lede">Decides whether a piece of text is hate speech, and separately whether it is aimed at the LGBTQIA+ community. Built during my BSc.</p>
+        <ul class="tag-list timeline-item__tags">
+          <li class="tag tag--accent">Python</li>
+          <li class="tag">NLTK</li>
+          <li class="tag">2023</li>
+        </ul>
+      </header>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Two questions, not one</h2>
+        <p>
+          Most detectors answer a single question: is this hate speech? This one answers that, and separately asks whether the text is directed at the LGBTQIA+ community.
+        </p>
+        <p>
+          Keeping them apart matters. Text can be about the community without being hateful, and hateful without being about it — collapsing both into one score would lose that distinction entirely.
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">How it decides</h2>
+        <p>
+          Text is parsed into words and scored against reference corpora, with WordNet used to widen matching beyond exact wording so related terms are not missed.
+        </p>
+        <ul class="timeline-item__points">
+          <li>Three separate thresholds — word score, hate speech, and positive speech — each adjustable at runtime.</li>
+          <li>Sensitivity is therefore a setting rather than something baked into the code, which matters for a judgement this subjective.</li>
+          <li>It checks for a connection at startup and only downloads language resources if there is one, so it still runs offline.</li>
+        </ul>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Data and testing</h2>
+        <p>
+          Tested against a large public corpus of 1.6 million tweets and a set of LGBTQ-related Reddit comments, giving both general text and text specific to the second question.
+        </p>
+        <p>
+          <strong>40 unit tests</strong> with coverage measured, covering the parsers, both detectors, and the result handling as separate units.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer data-site-footer></footer>
+
+  <script src="assets/js/api-status.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/reveal.js" defer></script>
+</body>
+</html>

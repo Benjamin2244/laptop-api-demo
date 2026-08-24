@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clucker · Benjamin Ward</title>
+  <meta name="description" content="A Django microblogging web application with accounts, posts, following and a feed — built during Benjamin Ward's BSc." />
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="assets/js/analytics.js" defer></script>
+</head>
+<body>
+  <noscript>
+    <div class="noscript-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="work-experience.html">Work Experience</a></li>
+        <li><a href="work-projects.html">Work Projects</a></li>
+        <li><a href="personal-projects.html">Personal Projects</a></li>
+        <li><a href="certifications.html">Certifications</a></li>
+        <li><a href="skills.html">Skills &amp; Tech</a></li>
+        <li><a href="extracurricular.html">Extracurricular</a></li>
+        <li><a href="cv.html">CV</a></li>
+      </ul>
+    </div>
+  </noscript>
+
+  <div data-topbar></div>
+
+  <main data-back="degree-bsc.html" data-hue="indigo">
+    <div class="container">
+
+      <header class="page-header" data-reveal="head">
+        <h1>Clucker</h1>
+        <p class="page-header__lede">A microblogging web application — accounts, posts, following and a feed. Chicken-themed, and built during my BSc.</p>
+        <ul class="tag-list timeline-item__tags">
+          <li class="tag tag--accent">Python</li>
+          <li class="tag">Django</li>
+          <li class="tag">2021</li>
+        </ul>
+      </header>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">What it is</h2>
+        <p>
+          Users sign up, post up to 280 characters, follow each other, and see a feed of the people they follow. Small in scope on purpose — the interesting part was building all of it properly rather than building a lot of it.
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">How it is put together</h2>
+        <ul class="timeline-item__points">
+          <li>A custom user model extending Django&rsquo;s authentication, with following modelled as a self-referential many-to-many relationship — so one table expresses the whole social graph.</li>
+          <li>Views split by concern — authentication, account, posts, follows, feed — rather than accumulating in a single file.</li>
+          <li>Shared behaviour pulled into mixins instead of being repeated across views.</li>
+        </ul>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Testing</h2>
+        <p>
+          <strong>134 tests across 23 files</strong>, with coverage measured — roughly two tests for every commit in the project.
+        </p>
+        <p>
+          67 commits over a term, October to December 2021, built solo.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer data-site-footer></footer>
+
+  <script src="assets/js/api-status.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/reveal.js" defer></script>
+</body>
+</html>

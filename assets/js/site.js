@@ -26,6 +26,20 @@
     { href: "cv.html", label: "CV" }
   ];
 
+  /* Detail pages: not sections, so they stay out of the footer list, but the
+     back link still has to be able to name them when one is the page you came
+     from or the parent a deep link falls back to. */
+  var DETAIL_LABELS = {
+    "degree-msc.html": "MSc",
+    "degree-bsc.html": "BSc",
+    "role-kynd.html": "KYND",
+    "project-crawler.html": "Web crawler",
+    "project-visibility-app.html": "Visibility dashboard",
+    "project-xai.html": "Dissertation",
+    "project-hate-speech.html": "Hate speech detector",
+    "project-clucker.html": "Clucker"
+  };
+
   var CONTACT = [
     { href: "mailto:Benjaminward2405@gmail.com", label: "Email" },
     {
@@ -51,7 +65,7 @@
     for (var i = 0; i < PAGES.length; i++) {
       if (PAGES[i].href === file) return PAGES[i].label;
     }
-    return null;
+    return DETAIL_LABELS[file] || null;
   }
 
   function currentFile() {

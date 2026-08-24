@@ -524,6 +524,13 @@ main > .container > * + * {
   margin-bottom: var(--sp-4);
 }
 
+/* The content column is wide so grids can pack in, but running prose across
+   78rem is unreadable — hold body copy to a sane line length. */
+.stack > p,
+.stack > ul.timeline-item__points {
+  max-width: var(--measure-prose);
+}
+
 /* --------------------------------------------------------------------------
    7. Cards
    -------------------------------------------------------------------------- */

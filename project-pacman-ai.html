@@ -42,6 +42,7 @@
           <li class="tag tag--accent">Python</li>
           <li class="tag">Markov decision process</li>
           <li class="tag">Value iteration</li>
+          <li class="tag">AI Reasoning and Decision Making</li>
         </ul>
       </header>
 
@@ -54,9 +55,15 @@
           information rather than in reading the game state directly.
         </p>
         <p>
-          The coursework came in versions of increasing difficulty. The easier
-          ones granted full visibility — the whole map, every ghost, every piece
-          of food. The hardest took nearly all of that away.
+          The coursework came in versions of increasing difficulty, run on maps
+          of different sizes — a small grid and a larger classic layout. The
+          easier ones granted full visibility: the whole map, every ghost, every
+          piece of food. The hardest took nearly all of that away.
+        </p>
+        <p>
+          It was marked on games actually won over repeated runs, rather than on
+          the code alone, so the agent had to survive the randomness rather than
+          merely look correct.
         </p>
       </section>
 
@@ -128,8 +135,8 @@
           The effect was that Pac-Man stopped taking marginal trades. Food and
           capsules sitting right beside a ghost were no longer worth it, because
           the value function now priced in the chance of a move going wrong at
-          exactly the moment it mattered most. It made the agent noticeably more
-          cautious, and noticeably more likely to finish the level.
+          exactly the moment it mattered most. A more cautious agent, and one
+          that won.
         </p>
       </section>
 

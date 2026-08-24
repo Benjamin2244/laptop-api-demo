@@ -748,6 +748,19 @@ a.card:focus-visible .card__meta::after {
 
 .timeline-item__points > li + li { margin-top: var(--sp-2); }
 
+/* Modules and grades read better as a wrapped badge list than as bullets,
+   and take far less vertical space. */
+.timeline-item__tags {
+  margin-top: var(--sp-3);
+}
+
+.tag__score {
+  margin-left: 0.4em;
+  color: var(--hue-1);
+  font-weight: 620;
+  font-variant-numeric: tabular-nums;
+}
+
 .timeline-item__points::marker { color: var(--hue-1); }
 
 @media (min-width: 40rem) {

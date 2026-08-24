@@ -37,7 +37,8 @@
     "project-visibility-app.html": "Visibility dashboard",
     "project-xai.html": "Dissertation",
     "project-hate-speech.html": "Hate speech detector",
-    "project-clucker.html": "Clucker"
+    "project-clucker.html": "Clucker",
+    "project-chess-clubs.html": "Chess club manager"
   };
 
   var CONTACT = [

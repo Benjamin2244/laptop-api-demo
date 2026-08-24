@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chess club and tournament manager · Benjamin Ward</title>
+  <meta name="description" content="A Django application for running chess clubs and their tournaments — a university group project, including the tournament scheduling engine." />
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="assets/js/analytics.js" defer></script>
+</head>
+<body>
+  <noscript>
+    <div class="noscript-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="work-experience.html">Work Experience</a></li>
+        <li><a href="work-projects.html">Work Projects</a></li>
+        <li><a href="personal-projects.html">Personal Projects</a></li>
+        <li><a href="certifications.html">Certifications</a></li>
+        <li><a href="skills.html">Skills &amp; Tech</a></li>
+        <li><a href="extracurricular.html">Extracurricular</a></li>
+        <li><a href="cv.html">CV</a></li>
+      </ul>
+    </div>
+  </noscript>
+
+  <div data-topbar></div>
+
+  <main data-back="degree-bsc.html" data-hue="indigo">
+    <div class="container">
+
+      <header class="page-header" data-reveal="head">
+        <h1>Chess club and tournament manager</h1>
+        <p class="page-header__lede">
+          A Django application for running chess clubs and the tournaments they
+          hold. A five-person group project during my BSc — what follows is the
+          part I worked on.
+        </p>
+        <ul class="tag-list timeline-item__tags">
+          <li class="tag tag--accent">Python</li>
+          <li class="tag">Django</li>
+          <li class="tag">Group project</li>
+        </ul>
+      </header>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">The system</h2>
+        <p>
+          Clubs have members in different roles, and people apply to join rather
+          than joining outright. Members enter the tournaments their club runs,
+          and the application organises the tournament itself — who plays whom,
+          in which stage, and what happens as results come in.
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">What I worked on</h2>
+        <p>
+          Work was picked up card by card rather than split into strict
+          ownership, so this is the set of tickets I took rather than a clean
+          area of the codebase.
+        </p>
+      </section>
+
+      <ul class="timeline" data-reveal="block">
+
+        <li class="timeline-item" data-reveal="item">
+          <h3 class="timeline-item__title">Clubs and membership</h3>
+          <ul class="timeline-item__points">
+            <li>The applicant model, so joining a club is a request someone approves rather than an instant action.</li>
+            <li>Member and club listings, and the information pages behind them.</li>
+            <li>An indicator on the member list showing each person&rsquo;s role within the club.</li>
+            <li>A navbar that lets you pick a club and takes you to it, giving the app a sense of which club you are currently in.</li>
+          </ul>
+        </li>
+
+        <li class="timeline-item" data-reveal="item">
+          <h3 class="timeline-item__title">Tournaments</h3>
+          <ul class="timeline-item__points">
+            <li>Tournament list and information views.</li>
+            <li>Entry closing at the deadline, so nobody can join a tournament that has already been drawn.</li>
+            <li>The organiser arranging and publishing the schedule of matches in the window after entries close but before play starts.</li>
+          </ul>
+        </li>
+
+        <li class="timeline-item" data-reveal="item">
+          <h3 class="timeline-item__title">The tournament engine</h3>
+          <ul class="timeline-item__points">
+            <li>The match and match group models.</li>
+            <li>Later stages for larger fields — 17 to 32 entrants, and 33 to 96 — which cannot run as a single bracket.</li>
+            <li>Group stages scored on wins, losses and draws, with the top two from each group going through.</li>
+            <li>Pairing that keeps the same two players apart until the structure makes meeting again unavoidable.</li>
+          </ul>
+        </li>
+
+        <li class="timeline-item" data-reveal="item">
+          <h3 class="timeline-item__title">Tests</h3>
+          <ul class="timeline-item__points">
+            <li>The user class models, the member list, the applicant and club lists.</li>
+            <li>The tournament list and the create-tournament view.</li>
+            <li>Extensions to the applicant list.</li>
+          </ul>
+        </li>
+
+      </ul>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">The part worth talking about</h2>
+        <p>
+          The scheduling. A 96-entrant tournament cannot be one bracket, so the
+          field has to be cut down in stages, and each stage needs a format that
+          suits however many players are left in it.
+        </p>
+        <p>
+          Sitting on top of that is the constraint that two players should not
+          meet again until the structure forces it — easy to state, and
+          considerably more fiddly to actually satisfy while the groups for the
+          next stage are still being formed.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer data-site-footer></footer>
+
+  <script src="assets/js/api-status.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/reveal.js" defer></script>
+</body>
+</html>

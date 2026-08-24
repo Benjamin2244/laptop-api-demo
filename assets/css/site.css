@@ -524,6 +524,13 @@ main > .container > * + * {
   margin-bottom: var(--sp-4);
 }
 
+/* The content column is wide so grids can pack in, but running prose across
+   78rem is unreadable — hold body copy to a sane line length. */
+.stack > p,
+.stack > ul.timeline-item__points {
+  max-width: var(--measure-prose);
+}
+
 /* --------------------------------------------------------------------------
    7. Cards
    -------------------------------------------------------------------------- */
@@ -714,6 +721,66 @@ a.card:focus-visible .card__meta::after {
 .timeline-item:hover::before {
   transform: scaleY(1);
   opacity: 1;
+}
+
+/* Clickable roles. The <li> carries .timeline-cell so it can stretch without
+   turning education.html's plain <li class="timeline-item"> into a flex row. */
+.timeline-cell {
+  display: flex;
+}
+
+.timeline-item--link {
+  width: 100%;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.timeline-item--link:hover,
+.timeline-item--link:focus-visible {
+  border-color: color-mix(in srgb, var(--hue-1) 45%, var(--border));
+  box-shadow: var(--shadow-hover);
+}
+
+.timeline-item--link:hover::before,
+.timeline-item--link:focus-visible::before {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .timeline-item--link:hover,
+  .timeline-item--link:focus-visible {
+    transform: translateY(-4px);
+  }
+}
+
+.timeline-item__more {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-4);
+  color: var(--hue-1);
+  font-size: var(--fs-sm);
+  font-weight: 550;
+}
+
+.timeline-item__more::after {
+  content: "→";
+  transition: transform var(--dur) var(--ease);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .timeline-item--link:hover .timeline-item__more::after,
+  .timeline-item--link:focus-visible .timeline-item__more::after {
+    transform: translateX(4px);
+  }
+}
+
+.timeline-item__summary {
+  margin-top: var(--sp-3);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
 }
 
 .timeline-item__head {

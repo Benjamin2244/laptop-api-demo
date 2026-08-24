@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Concurrent web crawler in Go · Benjamin Ward</title>
+  <meta name="description" content="A concurrent web crawler written in Go — up to 128 goroutines sharing a visited set, benchmarked against an established crawler library." />
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="assets/js/analytics.js" defer></script>
+</head>
+<body>
+  <noscript>
+    <div class="noscript-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work-projects.html">Work Projects</a></li>
+        <li><a href="work-experience.html">Work Experience</a></li>
+        <li><a href="skills.html">Skills &amp; Tech</a></li>
+        <li><a href="cv.html">CV</a></li>
+      </ul>
+    </div>
+  </noscript>
+
+  <div data-topbar></div>
+
+  <main data-back="work-projects.html" data-hue="blue">
+    <div class="container">
+
+      <header class="page-header" data-reveal="head">
+        <h1>Concurrent web crawler</h1>
+        <p class="page-header__lede">
+          Start from a homepage and map every URL reachable by following links.
+          Written in Go during my internship at KYND.
+        </p>
+        <ul class="tag-list timeline-item__tags">
+          <li class="tag tag--accent">Go</li>
+          <li class="tag">Concurrency</li>
+          <li class="tag">2023</li>
+        </ul>
+      </header>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">What it does</h2>
+        <p>
+          Given a starting URL, the crawler fetches the page, extracts every
+          link, keeps the ones on the same site, and repeats until it has run
+          out of new pages to visit. What comes out is a sorted list of every
+          URL discoverable from that starting point.
+        </p>
+        <p>
+          I ran it against KYND&rsquo;s public site and against monzo.com as a
+          larger target — the monzo run found <strong>5,322 URLs</strong>.
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Doing it concurrently</h2>
+        <p>
+          Crawling is almost entirely spent waiting on the network, so fetching
+          one page at a time leaves the program idle most of the time. Instead
+          it runs many fetches at once — up to <strong>128 goroutines</strong>
+          in flight, coordinated with a <code>WaitGroup</code> and a counter
+          guarded by a mutex.
+        </p>
+        <p>
+          That is where the real problem starts. Every worker is discovering
+          links at the same time, and they all need the same three pieces of
+          state: the queue of URLs still to visit, the set of URLs already
+          visited, and the set of domains allowed. Those are
+          <code>sync.Map</code>s, so many goroutines can read and write them
+          without corrupting each other — and, just as importantly, without two
+          workers deciding to fetch the same page.
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Keeping the crawl cheap</h2>
+        <p>
+          A crawler that follows every link it sees will happily wander off into
+          the rest of the internet and never finish, so several filters run
+          before a URL is ever fetched:
+        </p>
+        <ul class="timeline-item__points">
+          <li>Same site only, treating <code>www.</code> and the bare domain as one.</li>
+          <li>HTTPS links only.</li>
+          <li>
+            Skips images, PDFs and audio by file extension — no point spending a
+            request and an HTML parse on a file with no links in it.
+          </li>
+          <li>Checks both the queue and the visited set, so nothing is queued twice.</li>
+        </ul>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Checking it was actually right</h2>
+        <p>
+          A crawler that silently misses pages still looks like it works, so I
+          benchmarked mine against
+          <a href="https://github.com/gocolly/colly" target="_blank" rel="noopener">gocolly/colly</a>,
+          an established Go crawling library, as a reference implementation.
+        </p>
+        <p>
+          Both were run over the same site and the results diffed in both
+          directions: which URLs colly found that mine had missed, and which
+          mine found that colly had not. Both runs were timed, so correctness
+          and speed could be compared together.
+        </p>
+        <p>
+          Alongside that, <strong>21 unit tests</strong> cover the parts worth
+          testing in isolation — domain extraction, link parsing, the relevance
+          and file-type filters, and the visited set.
+        </p>
+      </section>
+
+      <p class="placeholder-note" data-reveal="block">
+        Built as an exercise during the internship rather than to meet a
+        production need. The source is not public.
+      </p>
+
+    </div>
+  </main>
+
+  <footer data-site-footer></footer>
+
+  <script src="assets/js/api-status.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/reveal.js" defer></script>
+</body>
+</html>

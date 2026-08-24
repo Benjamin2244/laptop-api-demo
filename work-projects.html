@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Work Projects · Benjamin Ward</title>
-  <meta name="description" content="Projects Benjamin Ward has built professionally." />
+  <meta name="description" content="Projects Benjamin Ward built professionally — a concurrent web crawler in Go, and a React and Node.js visibility dashboard." />
   <link rel="stylesheet" href="assets/css/site.css" />
   <script>document.documentElement.classList.add("js");</script>
   <script src="assets/js/analytics.js" defer></script>
@@ -32,33 +32,38 @@
 
       <header class="page-header" data-reveal="head">
         <h1>Work Projects</h1>
-        <p class="page-header__lede">Placeholder lede — a line introducing projects built on the job.</p>
+        <p class="page-header__lede">
+          Built during my
+          <a href="role-kynd.html">software engineering internship at KYND</a>.
+        </p>
       </header>
 
       <ul class="card-grid">
-          <li data-reveal="card">
-            <a class="card" href="project-placeholder.html">
-              <span class="card__title">Placeholder project (shared)</span>
-              <span class="card__desc">This project is also listed under Skills — it is the example that exercises the back link resolving to wherever you came from.</span>
-              <span class="card__meta">Placeholder tech</span>
-            </a>
-          </li>
-          <li data-reveal="card">
-            <a class="card" href="project-placeholder.html">
-              <span class="card__title">Placeholder project</span>
-              <span class="card__desc">Placeholder description — one line on what it does.</span>
-              <span class="card__meta">Placeholder tech</span>
-            </a>
-          </li>
-          <li data-reveal="card">
-            <a class="card" href="project-placeholder.html">
-              <span class="card__title">Placeholder project</span>
-              <span class="card__desc">Placeholder description — one line on what it does.</span>
-              <span class="card__meta">Placeholder tech</span>
-            </a>
-          </li>
+
+        <li data-reveal="card">
+          <a class="card" href="project-crawler.html">
+            <span class="card__title">Concurrent web crawler</span>
+            <span class="card__desc">
+              Maps every URL reachable from a homepage. Up to 128 goroutines
+              sharing one visited set, benchmarked against an established
+              crawler library.
+            </span>
+            <span class="card__meta">Go</span>
+          </a>
+        </li>
+
+        <li data-reveal="card">
+          <a class="card" href="project-visibility-app.html">
+            <span class="card__title">Visibility dashboard</span>
+            <span class="card__desc">
+              How many records were created, and when. A Postgres-backed API
+              with a React front end of donut charts and date-range filters.
+            </span>
+            <span class="card__meta">React · Node.js · PostgreSQL</span>
+          </a>
+        </li>
+
       </ul>
-      <p class="placeholder-note" data-reveal="block">Skeleton pass — each card will get its own page in the content pass.</p>
 
     </div>
   </main>

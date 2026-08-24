@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visibility dashboard · Benjamin Ward</title>
+  <meta name="description" content="A React and Node.js dashboard over a PostgreSQL database, built to a brief during an internship at KYND." />
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="assets/js/analytics.js" defer></script>
+</head>
+<body>
+  <noscript>
+    <div class="noscript-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work-projects.html">Work Projects</a></li>
+        <li><a href="work-experience.html">Work Experience</a></li>
+        <li><a href="skills.html">Skills &amp; Tech</a></li>
+        <li><a href="cv.html">CV</a></li>
+      </ul>
+    </div>
+  </noscript>
+
+  <div data-topbar></div>
+
+  <main data-back="work-projects.html" data-hue="blue">
+    <div class="container">
+
+      <header class="page-header" data-reveal="head">
+        <h1>Visibility dashboard</h1>
+        <p class="page-header__lede">
+          A dashboard answering how much was being created, and when. Built to a
+          brief during my internship at KYND.
+        </p>
+        <ul class="tag-list timeline-item__tags">
+          <li class="tag tag--accent">React</li>
+          <li class="tag">Node.js</li>
+          <li class="tag">Express</li>
+          <li class="tag">PostgreSQL</li>
+          <li class="tag">Chart.js</li>
+          <li class="tag">2023</li>
+        </ul>
+      </header>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">The brief</h2>
+        <p>
+          The business wanted better visibility into how many records were being
+          created over time, across three related kinds of thing: organisations,
+          reports, and the documents attached to those reports.
+        </p>
+        <p>
+          KYND supplied the starting point — a PostgreSQL database running in
+          Docker, the three tables, and seeders to populate them with dummy
+          data. Building the API and the interface on top of it was the task.
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">The API</h2>
+        <p>
+          An Express service talking to Postgres, with an endpoint for each of
+          the three record types.
+        </p>
+        <p>
+          The useful part is that every endpoint takes the same shape of query:
+          a search term, plus independent date ranges for when a record was
+          created and when it was last updated. That means the interface never
+          needs to filter anything itself — it asks the database for exactly the
+          slice it wants to show, and the same endpoint serves a summary count
+          and a detailed list.
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">The interface</h2>
+        <p>
+          A React front end built around picking a period and seeing what
+          happened in it. Date-range pickers and a search bar drive the query;
+          the results come back as running totals, donut charts drawn with
+          Chart.js showing how records break down by category, and lists of the
+          matching records underneath.
+        </p>
+        <p>
+          Changing the range re-queries the API and redraws, so the charts and
+          the lists always describe the same slice of data.
+        </p>
+      </section>
+
+      <p class="placeholder-note" data-reveal="block">
+        Built against seeded dummy data supplied with the brief, so the numbers
+        it showed were not real. The source is not public.
+      </p>
+
+    </div>
+  </main>
+
+  <footer data-site-footer></footer>
+
+  <script src="assets/js/api-status.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/reveal.js" defer></script>
+</body>
+</html>

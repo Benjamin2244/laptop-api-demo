@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Software Engineer Intern at KYND · Benjamin Ward</title>
+  <meta name="description" content="Benjamin Ward's software engineering internship at KYND in London — a web crawler in Go, and a website and API in React and Node.js." />
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="assets/js/analytics.js" defer></script>
+</head>
+<body>
+  <noscript>
+    <div class="noscript-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work-experience.html">Work Experience</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="work-projects.html">Work Projects</a></li>
+        <li><a href="personal-projects.html">Personal Projects</a></li>
+        <li><a href="certifications.html">Certifications</a></li>
+        <li><a href="skills.html">Skills &amp; Tech</a></li>
+        <li><a href="extracurricular.html">Extracurricular</a></li>
+        <li><a href="cv.html">CV</a></li>
+      </ul>
+    </div>
+  </noscript>
+
+  <div data-topbar></div>
+
+  <main data-back="work-experience.html" data-hue="teal">
+    <div class="container">
+
+      <header class="page-header" data-reveal="head">
+        <h1>Software Engineer Intern</h1>
+        <p class="page-header__lede">
+          KYND — London &middot; June – July 2023
+        </p>
+        <ul class="tag-list timeline-item__tags">
+          <li class="tag tag--accent">Go</li>
+          <li class="tag">React</li>
+          <li class="tag">Node.js</li>
+        </ul>
+      </header>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">What I built</h2>
+        <ul class="timeline">
+
+          <li class="timeline-cell" data-reveal="item">
+            <a class="timeline-item timeline-item--link" href="project-crawler.html">
+              <h3 class="timeline-item__title">A concurrent web crawler in Go</h3>
+              <p class="timeline-item__summary">
+                Maps every URL reachable from a homepage by following links.
+                Runs up to 128 goroutines at once sharing a single visited set,
+                and was benchmarked against an established crawler library to
+                check it was not quietly missing pages.
+              </p>
+              <ul class="tag-list timeline-item__tags">
+                <li class="tag">Go</li>
+                <li class="tag">Concurrency</li>
+              </ul>
+              <span class="timeline-item__more">Read more</span>
+            </a>
+          </li>
+
+          <li class="timeline-cell" data-reveal="item">
+            <a class="timeline-item timeline-item--link" href="project-visibility-app.html">
+              <h3 class="timeline-item__title">A visibility dashboard</h3>
+              <p class="timeline-item__summary">
+                Built to a brief: show how many organisations, reports and
+                report documents were being created over a given period. A
+                Node.js API over PostgreSQL, with a React front end of donut
+                charts and date-range filters.
+              </p>
+              <ul class="tag-list timeline-item__tags">
+                <li class="tag">React</li>
+                <li class="tag">Node.js</li>
+                <li class="tag">PostgreSQL</li>
+              </ul>
+              <span class="timeline-item__more">Read more</span>
+            </a>
+          </li>
+
+        </ul>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Working with the team</h2>
+        <ul class="timeline-item__points">
+          <li>Presented my work to colleagues.</li>
+          <li>Took part in retrospectives and daily standups with the engineering team.</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <footer data-site-footer></footer>
+
+  <script src="assets/js/api-status.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/reveal.js" defer></script>
+</body>
+</html>

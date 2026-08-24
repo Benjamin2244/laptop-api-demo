@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game tracking and reviews · Benjamin Ward</title>
+  <meta name="description" content="A Django site for tracking, rating and reviewing video games, with collections and a social follow graph — a university group project." />
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="assets/js/analytics.js" defer></script>
+</head>
+<body>
+  <noscript>
+    <div class="noscript-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="work-experience.html">Work Experience</a></li>
+        <li><a href="work-projects.html">Work Projects</a></li>
+        <li><a href="personal-projects.html">Personal Projects</a></li>
+        <li><a href="certifications.html">Certifications</a></li>
+        <li><a href="skills.html">Skills &amp; Tech</a></li>
+        <li><a href="extracurricular.html">Extracurricular</a></li>
+        <li><a href="cv.html">CV</a></li>
+      </ul>
+    </div>
+  </noscript>
+
+  <div data-topbar></div>
+
+  <main data-back="degree-bsc.html" data-hue="indigo">
+    <div class="container">
+
+      <header class="page-header" data-reveal="head">
+        <h1>Game tracking and reviews</h1>
+        <p class="page-header__lede">
+          Letterboxd, but for video games: log what you have played and what you
+          want to play, rate and review it, and follow other people. A
+          six-person group project during my BSc — what follows is the part I
+          worked on.
+        </p>
+        <ul class="tag-list timeline-item__tags">
+          <li class="tag tag--accent">Python</li>
+          <li class="tag">Django</li>
+          <li class="tag">Group project</li>
+        </ul>
+      </header>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">The site</h2>
+        <p>
+          The brief was open — the team chose its own deliverables — and what we
+          settled on was a games equivalent of Letterboxd. People record the
+          games they have played or want to play, score and review them, gather
+          them into collections, and follow each other to see what everyone else
+          is playing.
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">What I worked on</h2>
+        <p>
+          Work was picked up card by card rather than split into strict
+          ownership, so this is the set of tickets I took.
+        </p>
+      </section>
+
+      <ul class="timeline" data-reveal="block">
+
+        <li class="timeline-item" data-reveal="item">
+          <h3 class="timeline-item__title">People and the follow graph</h3>
+          <ul class="timeline-item__points">
+            <li>The user model.</li>
+            <li>Following other users, and the followers and following lists that come with it.</li>
+            <li>The page listing all users, and a seeder to populate them for development.</li>
+          </ul>
+        </li>
+
+        <li class="timeline-item" data-reveal="item">
+          <h3 class="timeline-item__title">Games, ratings and collections</h3>
+          <ul class="timeline-item__points">
+            <li>The individual game page, and the page listing every game.</li>
+            <li>The form for rating and reviewing a game, capped at one review per person per game.</li>
+            <li>The view showing every review a game has received.</li>
+            <li>Creating collections of games.</li>
+          </ul>
+        </li>
+
+        <li class="timeline-item" data-reveal="item">
+          <h3 class="timeline-item__title">Finding things, and shipping it</h3>
+          <ul class="timeline-item__points">
+            <li>A search bar covering both games and users.</li>
+            <li>Getting the project uploaded, and writing the setup instructions.</li>
+            <li>The section of the report covering what the team had chosen to deliver.</li>
+          </ul>
+        </li>
+
+      </ul>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Two bugs worth keeping</h2>
+        <p>
+          Both were the same mistake in different clothes: the data model kept
+          two facts apart, and the code quietly treated them as one.
+        </p>
+        <p>
+          <strong>Zero-star reviews were disappearing.</strong> A review scored
+          zero showed up nowhere on the game&rsquo;s page. Zero is a perfectly
+          valid score, but somewhere between the query and the template it was
+          being read as no score at all — so the harshest reviews were the ones
+          nobody could see.
+        </p>
+        <p>
+          <strong>Played is not reviewed.</strong> The method fetching a
+          game&rsquo;s reviews was returning every play record, including games
+          someone had logged as played but never written anything about. Review
+          lists were padded with entries that had nothing to display, because a
+          query had merged two states the model deliberately kept separate.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer data-site-footer></footer>
+
+  <script src="assets/js/api-status.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/reveal.js" defer></script>
+</body>
+</html>

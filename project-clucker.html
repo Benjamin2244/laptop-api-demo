@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clucker · Benjamin Ward</title>
-  <meta name="description" content="A Django microblogging web application with accounts, posts, following and a feed — built during Benjamin Ward's BSc." />
+  <meta name="description" content="A taught Django project — accounts, posts, following and a feed — and the groundwork for the two group projects that followed it in Benjamin Ward's BSc." />
   <link rel="stylesheet" href="assets/css/site.css" />
   <script>document.documentElement.classList.add("js");</script>
   <script src="assets/js/analytics.js" defer></script>
@@ -33,10 +33,11 @@
 
       <header class="page-header" data-reveal="head">
         <h1>Clucker</h1>
-        <p class="page-header__lede">A microblogging web application — accounts, posts, following and a feed. Chicken-themed, and built during my BSc.</p>
+        <p class="page-header__lede">A microblogging web application — accounts, posts, following and a feed. Chicken-themed, taught week by week, and the Django groundwork for both group projects that came after it.</p>
         <ul class="tag-list timeline-item__tags">
           <li class="tag tag--accent">Python</li>
           <li class="tag">Django</li>
+          <li class="tag">Taught project</li>
           <li class="tag">2021</li>
         </ul>
       </header>
@@ -44,29 +45,44 @@
       <section class="stack" data-reveal="block">
         <h2 class="section-heading">What it is</h2>
         <p>
-          Users sign up, post up to 280 characters, follow each other, and see a feed of the people they follow. Small in scope on purpose — the interesting part was building all of it properly rather than building a lot of it.
+          Users sign up, post up to 280 characters, follow each other, and see a feed of the people they follow.
         </p>
       </section>
 
       <section class="stack" data-reveal="block">
-        <h2 class="section-heading">How it is put together</h2>
+        <h2 class="section-heading">A guided build</h2>
+        <p>
+          This was a taught project rather than one of my own design. It was built week by week against a specification, and the shape came with it — a custom user model extending Django&rsquo;s authentication, following modelled as a self-referential many-to-many relationship, views split by concern rather than accumulating in one file, and shared behaviour pulled into mixins.
+        </p>
+        <p>
+          Which is the point of it. Working through it is how I learned Django properly: models and migrations, the authentication system, class-based views, forms and templates, and how to test the lot. Concretely, the term covered:
+        </p>
         <ul class="timeline-item__points">
-          <li>A custom user model extending Django&rsquo;s authentication, with following modelled as a self-referential many-to-many relationship — so one table expresses the whole social graph.</li>
-          <li>Views split by concern — authentication, account, posts, follows, feed — rather than accumulating in a single file.</li>
-          <li>Shared behaviour pulled into mixins instead of being repeated across views.</li>
+          <li>Pagination on both the feed and the user list &mdash; twenty posts and ten users a page, set in configuration rather than hardcoded into the views.</li>
+          <li>A <code>seed</code> and <code>unseed</code> pair of management commands using Faker, filling the database with 100 users, 2,000 posts and a follow graph to develop against.</li>
+          <li>A <code>@login_prohibited</code> decorator bouncing already-signed-in users away from the login and sign-up pages, sending them wherever settings say rather than a hardcoded route.</li>
+          <li>Deployment to Heroku at the end of term.</li>
         </ul>
       </section>
 
       <section class="stack" data-reveal="block">
         <h2 class="section-heading">Testing</h2>
         <p>
-          <strong>134 tests across 19 test files</strong>, with a coverage configuration committed alongside them.
-        </p>
-        <p>
-          They are organised the way the app is — forms, models and views each tested separately, rather than piled into one file.
+          <strong>134 tests across 19 test files</strong>, with a coverage configuration committed alongside them, organised the way the app is — forms, models and views each tested separately rather than piled into one file.
         </p>
         <p>
           67 commits between October and December 2021, all of them mine.
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">What it led to</h2>
+        <p>
+          Both of my Django group projects were built on this. The
+          <a href="project-chess-clubs.html">chess club and tournament manager</a>
+          came later the same year, and the
+          <a href="project-games-collection.html">game tracking site</a>
+          the year after — and that one wanted users following each other, which was the one piece of it I had already built once.
         </p>
       </section>
 

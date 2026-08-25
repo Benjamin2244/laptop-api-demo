@@ -11,14 +11,18 @@ Note: this repo is public, so this file is too.
 - The tutorial/presentation one — fraud detection? Name and details TBC.
 
 **BSc**
-- Hate speech detector — go over it properly. Extra docs coming.
+- Hate speech detector — the final year project, akin to a dissertation. Needs
+  going over properly, extra docs coming. Also needs pulling out of the
+  five-project list into its own section, the way the MSc dissertation is.
 
 **Personal**
 - Journey Together — Android and iOS app.
 - Noughts and crosses — older one.
 
 **Work**
-- Decide what can be named. Actual products built, or kept generic (AWS, etc.)?
+- Current role — AI Engineer. Not on the site at all yet; Work Experience only
+  has KYND. Details parked for now, including how much can be named.
+- KYND is done, no further work needed there.
 
 ## New sections
 
@@ -32,14 +36,6 @@ Note: this repo is public, so this file is too.
 - Sort and filter across projects by topic — AI, cyber security, software
   engineering, etc.
 - BSc modules viewable by year as an option.
-
-## Open questions
-
-- Is the hate speech detector BSc or MSc? It is tagged 2023 and sits under the
-  BSc, from an earlier conversation, but the latest list put it alongside the
-  MSc items. Worth settling before writing it up.
-- Was it also the individual final-year project? If so it should come out of the
-  project list into its own section, like the MSc dissertation.
 
 ## Smaller
 

@@ -958,12 +958,6 @@ a.card:focus-visible .card__meta::after {
   max-width: 30rem;
 }
 
-.project-figure figcaption {
-  margin-top: var(--sp-2);
-  color: var(--text-faint);
-  font-size: var(--fs-sm);
-}
-
 .project-video {
   display: block;
   width: auto;

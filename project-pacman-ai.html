@@ -144,13 +144,19 @@
       <section class="stack" data-reveal="block">
         <h2 class="section-heading">Seeing it run</h2>
         <p>
-          An earlier, full-visibility version, recorded while I was debugging
-          rather than to show the agent off. Everything on screen &mdash; the
-          whole map, all four ghosts, every piece of food &mdash; is what the
-          final version takes away, so it is worth watching as the problem
-          before it got hard rather than as the result. Partway through, Pac-Man
-          takes a capsule and the ghosts turn white &mdash; the window in which
-          the values above flip.
+          A run recorded while I was debugging, so it shows the agent working
+          rather than performing. What the window draws is not what the agent
+          could see: the display always renders the whole maze, while the API
+          hands back only what is near Pac-Man. The original recording had a
+          terminal beside it printing each answer &mdash; a single ghost while
+          several were on the board, and no capsules at all while one sat in
+          the corner. That panel is cropped out here, along with the editor
+          next to it.
+        </p>
+        <p>
+          It is not the most restricted version, though. The file&rsquo;s own
+          comments mark it as an earlier one, before the limits tightened
+          further and uncertainty was added to what the API reports.
         </p>
         <figure class="project-figure">
           <video class="project-video" controls playsinline preload="metadata"
@@ -160,7 +166,7 @@
             Your browser cannot play this video.
             <a href="assets/video/pacman.mp4">Download it instead.</a>
           </video>
-          <figcaption>Full-visibility version. Silent &mdash; there is no audio track.</figcaption>
+          <figcaption>Cropped to the game window. Silent &mdash; there is no audio track.</figcaption>
         </figure>
       </section>
 

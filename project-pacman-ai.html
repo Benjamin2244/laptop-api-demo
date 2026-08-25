@@ -145,28 +145,32 @@
         <h2 class="section-heading">Seeing it run</h2>
         <p>
           A run recorded while I was debugging, so it shows the agent working
-          rather than performing. What the window draws is not what the agent
-          could see: the display always renders the whole maze, while the API
-          hands back only what is near Pac-Man. The original recording had a
-          terminal beside it printing each answer &mdash; a single ghost while
-          several were on the board, and no capsules at all while one sat in
-          the corner. That panel is cropped out here, along with the editor
-          next to it.
+          rather than performing. It is a phone recording of the screen,
+          uncut &mdash; the game on the left, the source in the middle, and a
+          terminal on the right printing what the API hands back at each step.
         </p>
         <p>
-          It is not the most restricted version, though. The file&rsquo;s own
-          comments mark it as an earlier one, before the limits tightened
-          further and uncertainty was added to what the API reports.
+          That terminal is the interesting half. The game window always draws
+          the whole maze, but the maze is not the agent&rsquo;s view: the
+          restriction is on what the API will answer, not on what is drawn. So
+          while several ghosts are on the board, the API returns one; while a
+          capsule sits in the corner, it returns an empty list of capsules.
+          Pac-Man is working from a slice of a map he is never shown.
+        </p>
+        <p>
+          It is not the most restricted version, though. The comments in the
+          file mark it as an earlier one, before the limits tightened further
+          and uncertainty was added to what the API reports.
         </p>
         <figure class="project-figure">
           <video class="project-video" controls playsinline preload="metadata"
-                 width="804" height="552"
+                 width="480" height="848"
                  src="assets/video/pacman.mp4"
                  poster="assets/video/pacman-poster.jpg">
             Your browser cannot play this video.
             <a href="assets/video/pacman.mp4">Download it instead.</a>
           </video>
-          <figcaption>Cropped to the game window. Silent &mdash; there is no audio track.</figcaption>
+          <figcaption>Silent &mdash; there is no audio track. Fullscreen helps with the terminal.</figcaption>
         </figure>
       </section>
 

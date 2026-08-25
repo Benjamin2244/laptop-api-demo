@@ -144,23 +144,14 @@
       <section class="stack" data-reveal="block">
         <h2 class="section-heading">Seeing it run</h2>
         <p>
-          A run recorded while I was debugging, so it shows the agent working
-          rather than performing. It is a phone recording of the screen,
-          uncut &mdash; the game on the left, the source in the middle, and a
-          terminal on the right printing what the API hands back at each step.
+          A recording I made for myself while developing the agent, rather
+          than a demonstration of a finished one &mdash; the game on the left,
+          the source in the middle, and a terminal on the right printing what
+          the API returns at each step.
         </p>
         <p>
-          That terminal is the interesting half. The game window always draws
-          the whole maze, but the maze is not the agent&rsquo;s view: the
-          restriction is on what the API will answer, not on what is drawn. So
-          while several ghosts are on the board, the API returns one; while a
-          capsule sits in the corner, it returns an empty list of capsules.
-          Pac-Man is working from a slice of a map he is never shown.
-        </p>
-        <p>
-          It is not the most restricted version, though. The comments in the
-          file mark it as an earlier one, before the limits tightened further
-          and uncertainty was added to what the API reports.
+          The window draws the whole maze whatever the agent is allowed to ask
+          for, so what is on screen is not what Pac-Man can see.
         </p>
         <figure class="project-figure">
           <video class="project-video" controls playsinline preload="metadata"

@@ -55,8 +55,14 @@
           This was a taught project rather than one of my own design. It was built week by week against a specification, and the shape came with it — a custom user model extending Django&rsquo;s authentication, following modelled as a self-referential many-to-many relationship, views split by concern rather than accumulating in one file, and shared behaviour pulled into mixins.
         </p>
         <p>
-          Which is the point of it. Working through it is how I learned Django properly: models and migrations, the authentication system, class-based views, forms and templates, and how to test the lot.
+          Which is the point of it. Working through it is how I learned Django properly: models and migrations, the authentication system, class-based views, forms and templates, and how to test the lot. Concretely, the term covered:
         </p>
+        <ul class="timeline-item__points">
+          <li>Pagination on both the feed and the user list &mdash; twenty posts and ten users a page, set in configuration rather than hardcoded into the views.</li>
+          <li>A <code>seed</code> and <code>unseed</code> pair of management commands using Faker, filling the database with 100 users, 2,000 posts and a follow graph to develop against.</li>
+          <li>A <code>@login_prohibited</code> decorator bouncing already-signed-in users away from the login and sign-up pages, sending them wherever settings say rather than a hardcoded route.</li>
+          <li>Deployment to Heroku at the end of term.</li>
+        </ul>
       </section>
 
       <section class="stack" data-reveal="block">

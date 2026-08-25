@@ -210,6 +210,16 @@ img {
   display: block;
 }
 
+/* <code> was already in use on the crawler page with nothing styling it, so
+   it fell back to the browser default at a mismatched size. */
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  padding: 0.1em 0.3em;
+  border-radius: calc(var(--radius) / 3);
+  background: var(--bg-sunken);
+}
+
 a {
   color: var(--accent);
   text-decoration-thickness: 1px;

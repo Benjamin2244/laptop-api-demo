@@ -949,7 +949,19 @@ a.card:focus-visible .card__meta::after {
   .cv-viewer { height: 85vh; max-height: 60rem; }
 }
 
-/* Project video. Styled now so dropping a file in needs no CSS work. */
+/* Project video. Capped near the source's own pixel width so it is never
+   upscaled into softness on a wide screen. */
+.project-figure {
+  margin: 0;
+  max-width: 52rem;
+}
+
+.project-figure figcaption {
+  margin-top: var(--sp-2);
+  color: var(--text-faint);
+  font-size: var(--fs-sm);
+}
+
 .project-video {
   width: 100%;
   max-width: 100%;

@@ -40,7 +40,8 @@
     "project-clucker.html": "Clucker",
     "project-chess-clubs.html": "Chess club manager",
     "project-games-collection.html": "Game tracking",
-    "project-pacman-ai.html": "Pac-Man AI"
+    "project-pacman-ai.html": "Pac-Man AI",
+    "project-journey-together.html": "Journey Together"
   };
 
   var CONTACT = [

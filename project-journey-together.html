@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Journey Together · Benjamin Ward</title>
+  <meta name="description" content="A social step-tracking app for iOS and Android, built in Flutter with Firebase — shared step goals drawn as a painted path you all move along." />
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="assets/js/analytics.js" defer></script>
+</head>
+<body>
+  <noscript>
+    <div class="noscript-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="work-experience.html">Work Experience</a></li>
+        <li><a href="work-projects.html">Work Projects</a></li>
+        <li><a href="personal-projects.html">Personal Projects</a></li>
+        <li><a href="certifications.html">Certifications</a></li>
+        <li><a href="skills.html">Skills &amp; Tech</a></li>
+        <li><a href="extracurricular.html">Extracurricular</a></li>
+        <li><a href="cv.html">CV</a></li>
+      </ul>
+    </div>
+  </noscript>
+
+  <div data-topbar></div>
+
+  <main data-back="personal-projects.html" data-hue="violet">
+    <div class="container">
+
+      <header class="page-header" data-reveal="head">
+        <img class="card__icon" src="assets/img/journey-together/icon.png" alt="" width="256" height="256" />
+        <h1>Journey Together</h1>
+        <p class="page-header__lede">
+          A step-tracking app you use with your friends rather than alone. On the
+          App Store and Google Play.
+        </p>
+        <ul class="tag-list timeline-item__tags">
+          <li class="tag tag--accent">Flutter</li>
+          <li class="tag">Dart</li>
+          <li class="tag">Firebase</li>
+          <li class="tag">iOS &amp; Android</li>
+          <li class="tag">Shipped</li>
+        </ul>
+      </header>
+
+      <div class="doc-actions" data-reveal="block">
+        <a class="button" href="https://apps.apple.com/app/id6802091881" target="_blank" rel="noopener">App Store</a>
+        <a class="button button--secondary" href="https://play.google.com/store/apps/details?id=com.journeytogether.steps" target="_blank" rel="noopener">Google Play</a>
+      </div>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Why it exists</h2>
+        <p>
+          My friends and I wanted to set step goals together and could not find
+          anything that did it the way we meant it. Step counters are built
+          around one person and their own numbers; the social ones mostly amount
+          to a leaderboard, which turns walking with your friends into competing
+          with them.
+        </p>
+        <p>
+          What we actually wanted was a shared target that everyone contributes
+          to. So a <strong>journey</strong> is a step goal you take on as a
+          group &mdash; a million steps, say &mdash; drawn as a path across a
+          painted landscape, with a marker for each person moving along it as
+          they walk. You can see how everyone is doing without it being a
+          ranking. Alongside that there is the ordinary daily side: your own
+          count, a streak, a goal, and a week at a glance.
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">What it looks like</h2>
+        <ul class="shots">
+          <li><img src="assets/img/journey-together/home.jpg" alt="The home screen: today's step count against a goal, a streak, and the week so far." width="540" height="1200" loading="lazy" /></li>
+          <li><img src="assets/img/journey-together/journey.jpg" alt="A shared journey: a painted path with a marker for each person, and everyone's progress listed below." width="540" height="1200" loading="lazy" /></li>
+          <li><img src="assets/img/journey-together/journeys.jpg" alt="The list of journeys you are part of." width="540" height="1200" loading="lazy" /></li>
+          <li><img src="assets/img/journey-together/friends.jpg" alt="The friends screen." width="540" height="1200" loading="lazy" /></li>
+        </ul>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Built with</h2>
+        <ul class="timeline-item__points">
+          <li>
+            <strong><a href="https://flutter.dev" target="_blank" rel="noopener">Flutter</a> and <a href="https://dart.dev" target="_blank" rel="noopener">Dart</a>.</strong>
+            One codebase for both platforms, which is the only reason a project
+            this size ships on iOS and Android at all rather than picking one.
+          </li>
+          <li>
+            <strong><a href="https://firebase.google.com" target="_blank" rel="noopener">Firebase</a>.</strong>
+            Authentication for accounts, Firestore for the data, and Crashlytics
+            and Analytics for finding out what breaks once it is on other
+            people&rsquo;s phones rather than mine.
+          </li>
+          <li>
+            <strong><a href="https://health.google/health-connect-android/" target="_blank" rel="noopener">Health Connect</a> on Android and <a href="https://www.apple.com/uk/ios/health/" target="_blank" rel="noopener">Apple Health</a> on iOS.</strong>
+            So the step count can come from the phone the person already carries,
+            rather than being typed in.
+          </li>
+        </ul>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Health data needed real care</h2>
+        <p>
+          This is the part that made it different from anything I had built
+          before. Steps are health data, and both stores treat them that way:
+          you declare what you read, why you read it, and where it goes, and the
+          declaration has to keep matching the code as the app changes.
+        </p>
+        <p>The decisions that followed from taking that seriously:</p>
+        <ul class="timeline-item__points">
+          <li>
+            <strong>Read steps and nothing else.</strong> The health permissions
+            are opt-in, and steps are the only thing behind them. An early
+            version also read distance; when that turned out to be unused, the
+            read came out rather than staying because it was already there.
+          </li>
+          <li>
+            <strong>Keep usage data unlinkable.</strong> The account ID is
+            deliberately never passed to Analytics, so what the app records about
+            how it is used cannot be tied back to a particular person&rsquo;s
+            account.
+          </li>
+          <li>
+            <strong>No tracking, and no advertising features.</strong> Which is a
+            choice with consequences &mdash; it is also what lets the app say it
+            does not track you and mean it.
+          </li>
+          <li>
+            <strong>Keep the privacy policy honest.</strong> Harder than it
+            sounds: after the distance read was removed, the published policy
+            still said distance might be read. Wrong in the user&rsquo;s favour,
+            but still wrong, and it stayed wrong until I went looking. The policy
+            now gets checked whenever what the app reads changes.
+          </li>
+        </ul>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Still going</h2>
+        <p>
+          It is on both stores and I am still working on it, so treat the
+          screenshots as a snapshot rather than a spec.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer data-site-footer></footer>
+
+  <script src="assets/js/api-status.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/reveal.js" defer></script>
+</body>
+</html>

@@ -959,6 +959,37 @@ a.card:focus-visible .card__meta::after {
   .doc-viewer { height: 85vh; max-height: 60rem; }
 }
 
+/* App icon on a project card. Only Journey Together has one — it is the only
+   project that shipped to a store, so the card being the odd one out is the
+   point rather than an inconsistency. */
+.card__icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 22%;
+  display: block;
+  margin-bottom: var(--sp-2);
+  border: 1px solid var(--border);
+}
+
+/* Phone screenshots. Portrait and tall, so they go in a fluid grid that fits
+   two across on a phone and four on a wide screen rather than one enormous
+   column. */
+.shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: var(--sp-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.shots img {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
 /* Project video. The source is a portrait phone recording, so it is capped
    by height as well as width: never upscaled past its own pixels, and never
    taller than the viewport on a short screen. width/height auto lets the

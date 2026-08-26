@@ -11,7 +11,6 @@ Note: this repo is public, so this file is too.
 - The tutorial/presentation one — fraud detection? Name and details TBC.
 
 **Personal**
-- Journey Together — Android and iOS app.
 - Noughts and crosses — older one.
 
 **Work**
@@ -28,6 +27,8 @@ Note: this repo is public, so this file is too.
 
 ## Features
 
+- A featured section on the home page. Journey Together is shipped on both
+  stores and currently sits behind two clicks, under Personal Projects.
 - Sort and filter across projects by topic — AI, cyber security, software
   engineering, etc.
 - BSc modules viewable by year as an option.

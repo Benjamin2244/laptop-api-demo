@@ -976,11 +976,14 @@ a.card:focus-visible .card__meta::after {
    column. */
 .shots {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
   gap: var(--sp-4);
   list-style: none;
   margin: 0;
   padding: 0;
+  /* Capped so three phone screenshots stay thumbnails on a wide screen
+     instead of stretching to fill the measure. */
+  max-width: 32rem;
 }
 
 .shots img {

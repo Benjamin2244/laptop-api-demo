@@ -10,11 +10,6 @@ Note: this repo is public, so this file is too.
 - Dissertation — findings. Extra docs coming that aren't in the repo.
 - The tutorial/presentation one — fraud detection? Name and details TBC.
 
-**BSc**
-- Hate speech detector — done. Written up from the report and the presentation,
-  both of which are now on the page to read and download, and pulled out into
-  its own section on the BSc page.
-
 **Personal**
 - Journey Together — Android and iOS app.
 - Noughts and crosses — older one.
@@ -47,5 +42,4 @@ Note: this repo is public, so this file is too.
 
 ## Could be done without Ben
 
-- Personal Projects page, partly — from the public Hate-Speech-Detector repo.
 - Certifications and Extracurricular, from the CV PDF.

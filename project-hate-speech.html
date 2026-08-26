@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hate speech detector · Benjamin Ward</title>
-  <meta name="description" content="A Python hate speech detector that separately identifies whether text targets the LGBTQIA+ community." />
+  <meta name="description" content="Benjamin Ward's BSc final year project — a lexicon-based detector for hate speech aimed at the LGBTQIA+ community, with the full report and presentation." />
   <link rel="stylesheet" href="assets/css/site.css" />
   <script>document.documentElement.classList.add("js");</script>
   <script src="assets/js/analytics.js" defer></script>
@@ -33,44 +33,134 @@
 
       <header class="page-header" data-reveal="head">
         <h1>Hate speech detector</h1>
-        <p class="page-header__lede">Decides whether a piece of text is hate speech, and separately whether it is aimed at the LGBTQIA+ community. Built during my BSc.</p>
+        <p class="page-header__lede">Detection of hate speech towards the LGBTQIA+ community using lexicon-based sentiment analysis. My BSc final year project at King&rsquo;s College London — two semesters, working alone, supervised by Dr Leonardo Magela Cunha.</p>
         <ul class="tag-list timeline-item__tags">
-          <li class="tag tag--accent">Python</li>
+          <li class="tag tag--accent">Final year project</li>
+          <li class="tag">Python</li>
           <li class="tag">NLTK</li>
+          <li class="tag">SentiWordNet</li>
           <li class="tag">2023</li>
         </ul>
       </header>
 
+      <div class="doc-actions" data-reveal="block">
+        <a class="button" href="#report">Read the report</a>
+        <a class="button button--secondary" href="#presentation">View the presentation</a>
+      </div>
+
       <section class="stack" data-reveal="block">
         <h2 class="section-heading">Two questions, not one</h2>
         <p>
-          Most detectors answer a single question: is this hate speech? This one answers that, and separately asks whether the text is directed at the LGBTQIA+ community.
+          Most detectors answer a single question: is this hate speech? This one answers that, and separately asks whether the text is directed at the LGBTQIA+ community. Only when both come back true is the text flagged.
         </p>
         <p>
-          Keeping them apart matters. Text can be about the community without being hateful, and hateful without being about it — collapsing both into one score would lose that distinction entirely.
+          Keeping them apart matters. Text can be about the community without being hateful, and hateful without being about it — collapsing both into one score would lose that distinction entirely. It also means the second question can be repointed at another group by swapping one file of related words, without touching the hate speech side at all.
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Why lexicon-based, not machine learning</h2>
+        <p>
+          Machine learning is the obvious choice for a classification problem like this, and it can be more accurate. I went the other way, for two reasons.
+        </p>
+        <ul class="timeline-item__points">
+          <li><strong>It can explain itself.</strong> A lexicon-based decision breaks down into the individual words and the score each one carried. If a piece of text is wrongly flagged, its author can be told exactly why — which matters a great deal when a wrong answer gets someone restricted or banned for doing nothing wrong.</li>
+          <li><strong>It needs no training data.</strong> Examples of hate speech aimed at a specific minority are hard to come by, and a method that does not need thousands of them adapts to other groups far more easily.</li>
+        </ul>
+        <p>
+          The honest caveat, which I found during testing: you still need pre-classified data to measure how well the thing works. That removes one of the advantages the lexicon approach was picked for.
         </p>
       </section>
 
       <section class="stack" data-reveal="block">
         <h2 class="section-heading">How it decides</h2>
         <p>
-          Text is parsed into words and scored against reference corpora, with WordNet used to widen matching beyond exact wording so related terms are not missed.
+          The system is modular, with a controller in the middle relaying between the parts, so any one module can be replaced without the rest of the program noticing. Text takes three steps through it.
         </p>
         <ul class="timeline-item__points">
-          <li>Three separate thresholds — word score, hate speech, and positive speech — each adjustable at runtime.</li>
-          <li>Sensitivity is therefore a setting rather than something baked into the code, which matters for a judgement this subjective.</li>
+          <li><strong>Parsing.</strong> Non-letter characters are stripped, everything is lowercased and split into words, giving every later stage one predictable format to assume. Emojis are pulled from the original text before that, since stripping punctuation would destroy them.</li>
+          <li><strong>Scoring.</strong> Each word is looked up in SentiWordNet and averaged into a single value. Words whose scores cancel out to zero are retried through WordNet synonyms — a word that carried meaning is worth chasing, whereas words absent from the lexicon are usually just connective, and following them would distort the sense and cost time for nothing.</li>
+          <li><strong>Thresholds.</strong> Word scores past a threshold collapse to +1 or -1 and the rest are dropped as neutral. A negative word counts twice, deliberately weighting the system towards catching hate speech, and each emoji counts three times, since an emoji states its tone plainly.</li>
+        </ul>
+        <p>
+          The LGBTQIA+ question is answered separately, by cross-referencing the same parsed words against a list of related terms.
+        </p>
+        <ul class="timeline-item__points">
+          <li>Three thresholds — word score, hate speech and positive speech — are all adjustable at runtime, so how sensitive the tool is stays a setting rather than something baked into the code. For a judgement this subjective, that felt like the caller&rsquo;s decision to make, not mine.</li>
+          <li>Both detectors can be switched off independently, and the word lists behind them can be read, added to, edited and reset through the interface.</li>
+          <li><strong>40 unit tests</strong> covering 95% of the system, each module tested as its own unit.</li>
           <li>It checks for a connection at startup and only downloads language resources if there is one, so it still runs offline.</li>
         </ul>
       </section>
 
       <section class="stack" data-reveal="block">
-        <h2 class="section-heading">Data and testing</h2>
+        <h2 class="section-heading">The data</h2>
         <p>
-          Tested against a large public corpus of 1.6 million tweets and a set of LGBTQ-related Reddit comments, giving both general text and text specific to the second question.
+          SentiWordNet 3.0.0 supplies the word scores. Of its 117,000 entries, everything whose positive and negative values cancelled to zero was stripped out, leaving <strong>27,873</strong> that actually carry a signal — the same information in a file small enough to read quickly.
         </p>
         <p>
-          <strong>40 unit tests</strong> with coverage measured, covering the parsers, both detectors, and the result handling as separate units.
+          Test data came from two places: <strong>9,930</strong> LGBTQ-related Reddit comments from RedditBias for the hate speech side, and <strong>10,000</strong> positive tweets cut down from the 1.6 million-example Sentiment140 corpus for the other side. About 20,000 pre-classified examples in total, so anyone modifying the system can measure the effect immediately, in batches as large as they want to pay for.
         </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Results, on 5,000 texts</h2>
+        <ul class="timeline-item__points">
+          <li><strong>Hate speech</strong> — precision 0.72, recall 0.49.</li>
+          <li><strong>LGBTQIA+ related</strong> — recall 1.00. Every LGBTQIA+ related comment in the test set was identified as such.</li>
+          <li><strong>LGBTQIA+ hate speech</strong> — precision 0.92, recall 0.49.</li>
+        </ul>
+        <p>
+          The split is stark. When the tool flags something, it is very likely right; but it only catches about half of what it should, which on the recall side is not far off guessing. Published work sets the bar higher — a comparable lexicon-based study reached 92% accuracy, and out-of-the-box machine learning models on this exact problem reached 0.97 recall.
+        </p>
+        <p>
+          Reading the misclassifications showed where it goes wrong. <em>&ldquo;trying to figure this thing out&rdquo;</em> was flagged as hate speech because <em>trying</em>, <em>figure</em>, <em>thing</em> and <em>out</em> all carry negative scores in the lexicon, while <em>&ldquo;many gays are flamboyant and attention-seeking&rdquo;</em> slipped through because the only word with a score was <em>flamboyant</em>, and it scores positive. A bigger lexicon would fix the second problem and not the first; what it needs is a stricter, more precise one.
+        </p>
+        <p>
+          So the conclusion in the report is the one the numbers support: promising, worth developing further, but not something I would recommend anyone deploy in this state.
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">What I would do differently</h2>
+        <p>
+          Machine learning. I started this before most of my AI modules, and the knowledge I had at the time was part of why I ruled it out — I would take it on now. The interesting version is not either-or, though: let a model decide what counts as targeted hate speech, and keep this tool for what it is genuinely good at, putting a value on how intense that text is and letting the caller pick the level they want to act on.
+        </p>
+      </section>
+
+      <!-- The two PDF viewers below deliberately sit outside [data-reveal]: the
+           reveal starts an element at opacity 0, and a PDF frame that loads while
+           invisible never paints its document once shown. They are lazy instead,
+           so neither file is fetched until the reader scrolls to it. -->
+      <section class="stack" id="report">
+        <h2 class="section-heading" data-reveal="block">The report</h2>
+        <p data-reveal="block">
+          The full report — background and method comparison, requirements, design, implementation, the legal and ethical issues, results and future work.
+        </p>
+        <div class="doc-actions" data-reveal="block">
+          <a class="button" href="assets/docs/Benjamin_Ward_Hate_Speech_Report.pdf" download>Download PDF · 2.2 MB</a>
+          <a class="button button--secondary" href="assets/docs/Benjamin_Ward_Hate_Speech_Report.pdf" target="_blank" rel="noopener">Open in new tab</a>
+        </div>
+        <iframe class="doc-viewer" src="assets/docs/Benjamin_Ward_Hate_Speech_Report.pdf" title="Final project report — Detection of Hate Speech towards the LGBTQIA+ community using lexicon-based sentiment analysis" loading="lazy">
+          This browser cannot display PDFs.
+          <a href="assets/docs/Benjamin_Ward_Hate_Speech_Report.pdf">Download the report instead.</a>
+        </iframe>
+      </section>
+
+      <section class="stack" id="presentation">
+        <h2 class="section-heading" data-reveal="block">The presentation</h2>
+        <p data-reveal="block">
+          The 15 slides I presented on the project: the approaches I weighed up, the plan I worked to, and an honest reflection at the end. Shown here as a PDF; the original PowerPoint file is there to download as well.
+        </p>
+        <div class="doc-actions" data-reveal="block">
+          <a class="button" href="assets/docs/Benjamin_Ward_Hate_Speech_Presentation.pdf" download>Download PDF · 0.9 MB</a>
+          <a class="button button--secondary" href="assets/docs/Benjamin_Ward_Hate_Speech_Presentation.pptx" download>Download PowerPoint · 1.3 MB</a>
+          <a class="button button--secondary" href="assets/docs/Benjamin_Ward_Hate_Speech_Presentation.pdf" target="_blank" rel="noopener">Open in new tab</a>
+        </div>
+        <iframe class="doc-viewer" src="assets/docs/Benjamin_Ward_Hate_Speech_Presentation.pdf" title="Individual project presentation slides" loading="lazy">
+          This browser cannot display PDFs.
+          <a href="assets/docs/Benjamin_Ward_Hate_Speech_Presentation.pdf">Download the slides instead.</a>
+        </iframe>
       </section>
 
     </div>

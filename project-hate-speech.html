@@ -33,7 +33,7 @@
 
       <header class="page-header" data-reveal="head">
         <h1>Hate speech detector</h1>
-        <p class="page-header__lede">Detection of hate speech towards the LGBTQIA+ community using lexicon-based sentiment analysis. My BSc final year project at King&rsquo;s College London — two semesters, working alone, supervised by Dr Leonardo Magela Cunha.</p>
+        <p class="page-header__lede">Detection of hate speech towards the LGBTQIA+ community using lexicon-based sentiment analysis. My BSc final year project at King&rsquo;s College London, over two semesters, supervised by Dr Leonardo Magela Cunha.</p>
         <ul class="tag-list timeline-item__tags">
           <li class="tag tag--accent">Final year project</li>
           <li class="tag">Python</li>
@@ -62,6 +62,37 @@
       </section>
 
       <section class="stack" data-reveal="block">
+        <h2 class="section-heading">What I had to work with</h2>
+        <p>
+          Before choosing anything, it was worth being honest about the limits, because they turned out to decide most of it.
+        </p>
+        <ul class="timeline-item__points">
+          <li><strong>Data.</strong> Whatever I could not source myself had to come from a third party, and the things I needed &mdash; positive and negative values for individual words, a list of LGBTQIA+ related terms, examples of hate speech aimed at that community &mdash; are not all equally easy to find. Finding reliable versions of them was the single hardest part of the project.</li>
+          <li><strong>What I knew.</strong> I started this before most of my AI modules, so anything that leant heavily on machine learning was near the edge of what I could build and debug on my own.</li>
+          <li><strong>Time.</strong> Two semesters, which is generous until you notice it also has to cover sourcing and cleaning the data, and writing the report.</li>
+        </ul>
+      </section>
+
+      <section class="stack" data-reveal="block">
+        <h2 class="section-heading">Two ways to do it</h2>
+        <p>
+          There were two credible approaches, and the point of weighing them was that neither was obviously right.
+        </p>
+        <p>
+          <strong>Machine learning</strong> recognises patterns across whole examples and classifies from them. It can be very accurate &mdash; and it is the obvious choice for a classification problem. But it needs training data, which was the resource I had least of; it is hard to explain why any particular decision came out the way it did; and it was the more complex thing to build with what I knew at the time.
+        </p>
+        <p>
+          <strong>Lexicon-based analysis</strong> breaks text into individual words and scores each one separately. It can be accurate, and every decision it makes is easy to explain, because the decision simply is the words and their scores. Its costs are real too: it needs a dataset of values for words, which is its own sourcing problem, and scoring words one at a time throws away the context they sat in.
+        </p>
+        <p>
+          I went with the lexicon. Explainability mattered most &mdash; if a wrong answer is what gets someone restricted or banned, being able to point at the words that caused it is not a nice-to-have. Dropping context has been shown to work well enough in published work. And I was confident I could actually finish it in the time.
+        </p>
+        <p>
+          One honest caveat I only found during testing: you still need pre-classified data to measure how well the thing works. That quietly removes one of the advantages the lexicon approach was picked for.
+        </p>
+      </section>
+
+      <section class="stack" data-reveal="block">
         <h2 class="section-heading">Two questions, not one</h2>
         <p>
           Most detectors answer a single question: is this hate speech? This one answers that, and separately asks whether the text is directed at the LGBTQIA+ community. Only when both come back true is the text flagged.
@@ -72,21 +103,10 @@
       </section>
 
       <section class="stack" data-reveal="block">
-        <h2 class="section-heading">Why lexicon-based, not machine learning</h2>
-        <p>
-          Machine learning is the obvious choice for a classification problem like this, and it can be more accurate. I went the other way, for two reasons.
-        </p>
-        <ul class="timeline-item__points">
-          <li><strong>It can explain itself.</strong> A lexicon-based decision breaks down into the individual words and the score each one carried. If a piece of text is wrongly flagged, its author can be told exactly why — which matters a great deal when a wrong answer gets someone restricted or banned for doing nothing wrong.</li>
-          <li><strong>It needs no training data.</strong> Examples of hate speech aimed at a specific minority are hard to come by, and a method that does not need thousands of them adapts to other groups far more easily.</li>
-        </ul>
-        <p>
-          The honest caveat, which I found during testing: you still need pre-classified data to measure how well the thing works. That removes one of the advantages the lexicon approach was picked for.
-        </p>
-      </section>
-
-      <section class="stack" data-reveal="block">
         <h2 class="section-heading">How it decides</h2>
+        <p>
+          Python, for the plain reason that I had the most experience in it and it is common enough that someone else can pick the code up and read it. Text is stored as CSV throughout &mdash; each record needs very little on it, so anything richer would have been weight for nothing.
+        </p>
         <p>
           The system is modular, with a controller in the middle relaying between the parts, so any one module can be replaced without the rest of the program noticing. Text takes three steps through it.
         </p>
@@ -137,7 +157,7 @@
       <section class="stack" data-reveal="block">
         <h2 class="section-heading">What I would do differently</h2>
         <p>
-          Machine learning. I started this before most of my AI modules, and the knowledge I had at the time was part of why I ruled it out — I would take it on now. The interesting version is not either-or, though: let a model decide what counts as targeted hate speech, and keep this tool for what it is genuinely good at, putting a value on how intense that text is and letting the caller pick the level they want to act on.
+          Machine learning. What I knew at the time was part of why I ruled it out, and that is no longer the constraint it was — I would take it on now. The interesting version is not either-or, though: let a model decide what counts as targeted hate speech, and keep this tool for what it is genuinely good at, putting a value on how intense that text is and letting the caller pick the level they want to act on.
         </p>
       </section>
 

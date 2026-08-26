@@ -20,6 +20,7 @@ extracurricular.html
 project-placeholder.html   example project page (linked from two sections)
 cv.html                    PDF viewer + download
 assets/
+  docs/                    project documents offered for reading and download
   css/site.css             design tokens, layout primitives, components
   js/site.js               shared chrome: topbar, back link, footer
   js/reveal.js             scroll-reveal animations
@@ -100,6 +101,24 @@ fires, a timeout shows the content anyway.
 3. Add an entry to `PAGES` in `assets/js/site.js` — that one array drives both
    the footer list and the back-link labels.
 4. Mark the content blocks you want animated with `data-reveal="…"`.
+
+## Documents
+
+Longer-form project material — reports, slide decks — lives in `assets/docs/`
+and is both embedded and downloadable on the page it belongs to, using the
+`.doc-actions` / `.doc-viewer` pair that the CV page also uses.
+
+Two rules for those viewers:
+
+- **The source file is served as the author made it.** Nothing is downsampled
+  or re-encoded to save bytes. Where a format browsers cannot display is
+  involved (a `.pptx`), a PDF rendering sits alongside it for viewing and the
+  original stays there to download.
+- **A viewer is never inside `[data-reveal]`.** The reveal starts an element at
+  `opacity: 0`, and a PDF frame that loads while invisible never paints once
+  shown. Mark the heading, prose and buttons instead, and leave the `<iframe>`
+  out of it — `loading="lazy"` then keeps the file off the wire until someone
+  scrolls to it.
 
 ## Local preview
 

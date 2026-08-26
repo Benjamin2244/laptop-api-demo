@@ -11,9 +11,9 @@ Note: this repo is public, so this file is too.
 - The tutorial/presentation one — fraud detection? Name and details TBC.
 
 **BSc**
-- Hate speech detector — the final year project, akin to a dissertation. Needs
-  going over properly, extra docs coming. Also needs pulling out of the
-  five-project list into its own section, the way the MSc dissertation is.
+- Hate speech detector — done. Written up from the report and the presentation,
+  both of which are now on the page to read and download, and pulled out into
+  its own section on the BSc page.
 
 **Personal**
 - Journey Together — Android and iOS app.
@@ -40,6 +40,7 @@ Note: this repo is public, so this file is too.
 ## Smaller
 
 - Clucker — what mark it got.
+- Hate speech detector — what mark it got.
 - CV PDF predates the MSc Merit the site now states.
 - Home page bio still placeholder.
 - Extracurricular page still placeholder.
@@ -48,5 +49,3 @@ Note: this repo is public, so this file is too.
 
 - Personal Projects page, partly — from the public Hate-Speech-Detector repo.
 - Certifications and Extracurricular, from the CV PDF.
-- Hate speech detector has a recorded 5,000-row evaluation in its repo that the
-  page never mentions. Numbers worked out already — undecided whether they go on.

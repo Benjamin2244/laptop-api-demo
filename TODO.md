@@ -22,7 +22,7 @@ Note: this repo is public, so this file is too.
 
 - Certifications — Azure AI Fundamentals, the cyber security ones, and the rest.
   Link out to the real certificates where possible; they should be on LinkedIn.
-- The article Ben wrote.
+- My article.
 - Full module lists for BSc and MSc, with grades.
 
 ## Features
@@ -33,6 +33,19 @@ Note: this repo is public, so this file is too.
   engineering, etc.
 - BSc modules viewable by year as an option.
 
+## Repo rename — decided, not done
+
+Rename the repo to `Benjamin2244.github.io`, which makes it a GitHub Pages
+user site served at `https://benjamin2244.github.io` with no path segment.
+
+Afterwards:
+- Check Settings → Pages that the source branch is still `main` — the site
+  changes kind (project site to user site), not just name.
+- Update the two mentions of the old name in `assets/js/site.js` and
+  `README.md`.
+
+The site itself needs no changes: every path is relative.
+
 ## Smaller
 
 - Clucker — what mark it got.
@@ -41,6 +54,6 @@ Note: this repo is public, so this file is too.
 - Home page bio still placeholder.
 - Extracurricular page still placeholder.
 
-## Could be done without Ben
+## Could be done without me
 
 - Certifications and Extracurricular, from the CV PDF.

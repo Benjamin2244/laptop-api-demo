@@ -20,7 +20,7 @@
     { href: "work-experience.html", label: "Work Experience" },
     { href: "work-projects.html", label: "Work Projects" },
     { href: "personal-projects.html", label: "Personal Projects" },
-    { href: "certifications.html", label: "Certifications" },
+    { href: "certifications.html", label: "Certifications & Training" },
     { href: "skills.html", label: "Skills & Tech" },
     { href: "extracurricular.html", label: "Extracurricular" },
     { href: "cv.html", label: "CV" }

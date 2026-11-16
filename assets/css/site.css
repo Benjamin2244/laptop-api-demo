@@ -975,6 +975,39 @@ a.card:focus-visible .card__meta::after {
   .doc-viewer { height: 85vh; max-height: 60rem; }
 }
 
+/* Skills & Tech: one row per skill, with links to the projects that use it.
+   Stacked on a phone, two columns once there is room. */
+.skill-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: var(--measure-prose);
+  border-top: 1px solid var(--border);
+}
+
+.skill-list > li {
+  display: grid;
+  gap: var(--sp-1);
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.skill-list__name {
+  font-weight: 600;
+}
+
+.skill-list__uses {
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+
+@media (min-width: 40rem) {
+  .skill-list > li {
+    grid-template-columns: 12rem 1fr;
+    align-items: baseline;
+  }
+}
+
 /* App icon on a project card. Only Journey Together has one — it is the only
    project that shipped to a store, so the card being the odd one out is the
    point rather than an inconsistency. */

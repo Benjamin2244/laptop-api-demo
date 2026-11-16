@@ -945,6 +945,22 @@ a.card:focus-visible .card__meta::after {
   box-shadow: var(--shadow);
 }
 
+/* Smaller button for actions inside a card, where a full button is too loud. */
+.button--small {
+  padding: var(--sp-2) var(--sp-4);
+  font-size: var(--fs-xs);
+}
+
+/* Credential links get filled in as they arrive. Until a button has one, it
+   stays hidden rather than pointing nowhere. */
+.credential-link {
+  margin-top: var(--sp-3);
+}
+
+.credential-link[href=""] {
+  display: none;
+}
+
 .doc-viewer {
   width: 100%;
   height: 70vh;

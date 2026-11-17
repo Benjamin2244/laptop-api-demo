@@ -33,6 +33,7 @@
     "degree-msc.html": "MSc",
     "degree-bsc.html": "BSc",
     "role-kynd.html": "KYND",
+    "role-ai-engineer.html": "AI Engineer",
     "project-crawler.html": "Web crawler",
     "project-visibility-app.html": "Visibility dashboard",
     "project-xai.html": "Dissertation",

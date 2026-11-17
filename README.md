@@ -1,10 +1,7 @@
-# benjamin ward — portfolio
+# Benjamin Ward — Portfolio
 
 Personal portfolio and CV site. Plain static HTML, CSS and JavaScript with no
 build step, served by GitHub Pages.
-
-> **Status: skeleton.** Structure, navigation and styling are in place; page
-> content is placeholder text pending a content pass.
 
 ## Structure
 
@@ -17,15 +14,22 @@ personal-projects.html
 certifications.html
 skills.html
 extracurricular.html
-project-placeholder.html   example project page (linked from two sections)
 cv.html                    PDF viewer + download
+degree-*.html              one page per degree
+role-*.html                one page per job
+project-*.html             one page per project (some linked from several sections)
+Benjamin_Ward_CV.pdf       the CV shown on cv.html
 assets/
-  docs/                    project documents offered for reading and download
   css/site.css             design tokens, layout primitives, components
   js/site.js               shared chrome: topbar, back link, footer
   js/reveal.js             scroll-reveal animations
   js/api-status.js         laptop API status widget
   js/analytics.js          Google Analytics tag
+  docs/                    project documents offered for reading and download
+  img/, video/             images and video used on project pages
+tests/verify.js            site-wide checks (see Tests)
+package.json               test dependencies only; the site has no build step
+CLAUDE.md                  conventions for commits and PRs
 ```
 
 All pages sit flat in the repo root and every path is **relative**. This site
@@ -69,9 +73,6 @@ smaller title and a line-clamped description on phones — which keeps the
 mobile-first, `min-width`-only convention rather than reaching for
 `max-width` overrides.
 
-With placeholder content, every section page fits within about one 1280×900
-screen, and the home page shows all eight cards without scrolling.
-
 ### Motion
 
 Elements marked `data-reveal="<group>"` fade and rise in as they scroll into
@@ -95,12 +96,18 @@ fires, a timeout shows the content anyway.
 ### Adding a page
 
 1. Create the HTML file in the repo root, copying the shell of an existing
-   section page.
+   page of the same kind.
 2. Set `data-back` on `<main>` to its default parent, and `data-hue` to one of
    the hues above.
-3. Add an entry to `PAGES` in `assets/js/site.js` — that one array drives both
-   the footer list and the back-link labels.
-4. Mark the content blocks you want animated with `data-reveal="…"`.
+3. Name it in `assets/js/site.js`:
+   - a **section** goes in `PAGES`, which drives the footer list and the
+     back-link labels;
+   - a **detail page** (a project, degree or role) goes in `DETAIL_LABELS`,
+     which only names it in back links.
+4. For a new section, also add it to the `<noscript>` menu on every page — the
+   plain fallback shown when JavaScript is off. `npm test` lists any page whose
+   menu doesn't match `PAGES`.
+5. Mark the content blocks you want animated with `data-reveal="…"`.
 
 ## Documents
 
@@ -128,6 +135,18 @@ python3 -m http.server 8000
 
 Then open <http://localhost:8000/>. A plain file:// open mostly works, but the
 back-link referrer logic and the API widget behave properly over HTTP.
+
+## Tests
+
+```
+npm install
+npm test
+```
+
+`tests/verify.js` starts its own local server, opens every page in Chromium and
+checks that pages load without errors, local links resolve, back links and
+no-JS menus are right, home card counts match their sections, nothing scrolls
+sideways on a phone, and no placeholder text or phone number has slipped in.
 
 ## Laptop API
 

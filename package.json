@@ -1,0 +1,11 @@
+{
+  "name": "portfolio",
+  "private": true,
+  "description": "Checks for the portfolio site. The site itself has no build step.",
+  "scripts": {
+    "test": "node tests/verify.js"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}

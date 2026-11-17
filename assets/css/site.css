@@ -260,7 +260,6 @@ a:hover { color: var(--accent-hover); }
 }
 
 .stack > * + * { margin-top: var(--sp-4); }
-.stack-lg > * + * { margin-top: var(--sp-6); }
 
 .card-grid {
   display: grid;
@@ -522,6 +521,10 @@ main > .container > * + * {
   margin-top: var(--sp-3);
   color: var(--text-muted);
   max-width: var(--measure-prose);
+}
+
+.page-header__tags {
+  margin-top: var(--sp-3);
 }
 
 @media (min-width: 40rem) {
@@ -951,13 +954,13 @@ a.card:focus-visible .card__meta::after {
   font-size: var(--fs-xs);
 }
 
-/* Credential links get filled in as they arrive. Until a button has one, it
-   stays hidden rather than pointing nowhere. */
-.credential-link {
+/* A small action button at the foot of a list entry, such as a certificate or
+   an article. One without a link stays hidden rather than pointing nowhere. */
+.entry-link {
   margin-top: var(--sp-3);
 }
 
-.credential-link[href=""] {
+.entry-link[href=""] {
   display: none;
 }
 
@@ -1065,25 +1068,7 @@ a.card:focus-visible .card__meta::after {
 }
 
 /* --------------------------------------------------------------------------
-   11. Placeholder markers
-   -------------------------------------------------------------------------- */
-
-.placeholder {
-  color: var(--text-faint);
-  font-style: italic;
-}
-
-.placeholder-note {
-  padding: var(--sp-4);
-  border: 1px dashed var(--border-strong);
-  border-radius: var(--radius);
-  color: var(--text-faint);
-  font-size: var(--fs-sm);
-  background: color-mix(in srgb, var(--hue-1) 4%, var(--bg-sunken));
-}
-
-/* --------------------------------------------------------------------------
-   12. Footer
+   11. Footer
    -------------------------------------------------------------------------- */
 
 .site-footer {
@@ -1167,7 +1152,7 @@ a.card:focus-visible .card__meta::after {
 }
 
 /* --------------------------------------------------------------------------
-   13. Laptop API status widget
+   12. Laptop API status widget
    -------------------------------------------------------------------------- */
 
 .api-status {
@@ -1265,7 +1250,7 @@ a.card:focus-visible .card__meta::after {
 }
 
 /* --------------------------------------------------------------------------
-   14. No-JS fallback navigation
+   13. No-JS fallback navigation
    -------------------------------------------------------------------------- */
 
 .noscript-nav {
@@ -1282,7 +1267,7 @@ a.card:focus-visible .card__meta::after {
 }
 
 /* --------------------------------------------------------------------------
-   15. Utilities
+   14. Utilities
    -------------------------------------------------------------------------- */
 
 .visually-hidden {
@@ -1298,7 +1283,7 @@ a.card:focus-visible .card__meta::after {
 }
 
 /* --------------------------------------------------------------------------
-   16. Print
+   15. Print
 
    Someone will hit Cmd+P on a CV site. Without this, anything below the fold
    that has not been scrolled into view would print at opacity 0.
